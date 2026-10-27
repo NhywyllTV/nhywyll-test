@@ -1,0 +1,94 @@
+<a href="#main-content" class="skip-link" data-i18n="skip_link"
+  >Skip to main content</a
+>
+<header class="site-header">
+  <!-- Banner artwork: "Star Sky" by Kekentang. A blurred copy fills the width, the artwork
+       itself sits on the right so more of it is visible; the full image is on the Credits page. -->
+  <img class="banner-bg" src="/images/banner/star-sky-800.webp" alt="" aria-hidden="true" width="800" height="464" />
+  <img class="banner-art" src="/images/banner/star-sky-1600.webp" srcset="/images/banner/star-sky-800.webp 800w, /images/banner/star-sky-1600.webp 1600w" sizes="55vw" alt="" aria-hidden="true" width="1600" height="929" fetchpriority="high" />
+  <div class="banner-shade" aria-hidden="true"></div>
+  <div class="hdr">
+    <div class="brand">
+      <a href="/" class="logo-link">
+        <span class="visually-hidden" data-i18n="page_title">page_title</span>
+        <img src="/images/logo-white.webp" alt="" class="logo logo-sea" width="400" height="172" fetchpriority="high" />
+      </a>
+    </div>
+  </div>
+</header>
+<!-- Thin bar that stays at the top while scrolling; the banner above scrolls away.
+     It must not sit inside <header>, or sticky would end at the header's bottom edge. -->
+<div class="nav-bar">
+  <div class="nav-inner">
+    <!-- Phones: schedule/LIVE stays in the bar (left), the menu button sits right.
+         Same links as in the list below, which hides its copy on phones. -->
+    <div class="nav-stream-mobile">
+        <a
+          href="https://twitch.tv/nhywyll"
+          target="_blank"
+          rel="noopener noreferrer"
+              class="stream-badge live-badge hidden"
+          aria-label="aria_live_badge"
+          data-i18n-aria-label="aria_live_badge"
+        >
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>LIVE</span>
+        </a>
+        <a
+          href="https://www.twitch.tv/nhywyll/schedule"
+          target="_blank"
+          rel="noopener noreferrer"
+              class="stream-badge schedule-badge"
+          aria-label="aria_schedule_link"
+          data-i18n-aria-label="aria_schedule_link"
+        >
+          <span data-i18n="schedule_label">schedule_label</span>
+        </a>
+    </div>
+    <button
+      type="button"
+      id="menu-toggle"
+      class="pill-btn menu-btn"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <svg class="icon-open" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      <svg class="icon-close" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      <span class="menu-label" data-i18n="nav_menu">Menu</span>
+    </button>
+    <nav id="site-nav" aria-label="Main">
+      <ul id="nav-menu">
+        <li><a href="/" data-i18n="nav_home">Home</a></li>
+        <li><a href="/links" data-i18n="nav_links">Links</a></li>
+        <!-- Schedule (or LIVE) sits in the middle of the bar; on phones it stays visible next to the menu button. -->
+        <li class="nav-stream-item">
+            <a
+              href="https://twitch.tv/nhywyll"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="live-indicator"
+              class="stream-badge live-badge hidden"
+              aria-label="aria_live_badge"
+              data-i18n-aria-label="aria_live_badge"
+            >
+              <span class="live-dot" aria-hidden="true"></span>
+              <span>LIVE</span>
+            </a>
+            <a
+              href="https://www.twitch.tv/nhywyll/schedule"
+              target="_blank"
+              rel="noopener noreferrer"
+              id="schedule-link"
+              class="stream-badge schedule-badge"
+              aria-label="aria_schedule_link"
+              data-i18n-aria-label="aria_schedule_link"
+            >
+              <span data-i18n="schedule_label">schedule_label</span>
+            </a>
+        </li>
+        <li><a href="/contact" data-i18n="nav_contact">Contact</a></li>
+        <li><a href="/credits" data-i18n="nav_credits">Credits</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>

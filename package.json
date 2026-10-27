@@ -1,0 +1,20 @@
+{
+  "name": "nhywyll-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/fetch-shorts.mjs && vite",
+    "build": "node scripts/fetch-shorts.mjs && tsc && vite build",
+    "preview": "vite preview",
+    "deploy:prod": "node scripts/deploy-prod.js",
+    "audit:i18n": "node scripts/audit-i18n.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.7",
+    "vite-plugin-html-inject": "^1.1.2",
+    "vite-plugin-sitemap": "^0.8.2"
+  }
+}

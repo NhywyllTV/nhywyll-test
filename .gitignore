@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.claude
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Lokales Arbeitsmaterial (z. B. Fachliteratur als EPUB).
+# Liegt beim Projekt, gehoert aber NICHT ins Repo - beide Remotes sind oeffentlich.
+_local/
+
+# Shorts are fetched fresh by scripts/fetch-shorts.mjs on every build.
+src/data/shorts.json
+public/images/shorts/

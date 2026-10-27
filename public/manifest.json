@@ -1,0 +1,17 @@
+{
+  "name": "Nhywyll - VTuber Streamer & Content Creator",
+  "short_name": "Nhywyll",
+  "description": "Official website and community hub for Nhywyll - VTuber, streamer, modded Minecraft survivalist and Silkie lover.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f101b",
+  "theme_color": "#7d88c4",
+  "icons": [
+    {
+      "src": "/images/For%20Icon.png",
+      "sizes": "150x150",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

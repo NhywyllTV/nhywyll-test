@@ -1,0 +1,69 @@
+<!-- Common Metadata & Setup -->
+<meta charset="UTF-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover, shrink-to-fit=no"
+/>
+<meta name="author" content="Nhywyll" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://nhywyll.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://decapi.me; font-src 'self';"
+/>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/images/For%20Icon.png" />
+<link rel="apple-touch-icon" href="/images/For%20Icon.png" />
+<link rel="manifest" href="/manifest.json" />
+
+<!-- Preload critical fonts -->
+<link
+  rel="preload"
+  href="/fonts/AtkinsonHyperlegible-Regular.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  href="/fonts/Marcellus-Regular.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+
+<!-- Hide the raw translation keys until main.ts has put in the texts (no flash on Ctrl+F5).
+     The keys stay in the HTML on purpose; if main.ts never runs, they show up after 2 s. -->
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.classList.add("i18n-pending");
+    setTimeout(function () {
+      root.classList.remove("i18n-pending");
+    }, 2000);
+    var title = document.querySelector("title");
+    if (title && /^[a-z0-9_]+$/.test(title.textContent)) title.textContent = "Nhywyll";
+  })();
+</script>
+
+<!-- Early Theme Detection Script -->
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem("theme");
+    const systemDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const initialTheme = savedTheme || (systemDark ? "dark" : "light");
+
+    if (initialTheme === "light") {
+      document.documentElement.classList.add("light-theme");
+      document.documentElement.style.backgroundColor = "#ffffff";
+    } else {
+      document.documentElement.style.backgroundColor = "#2b2d55";
+    }
+    document.documentElement.dataset.theme = initialTheme;
+  })();
+</script>
+
+<link rel="stylesheet" href="/src/styles.css" />
+<script type="module" src="/src/main.ts"></script>

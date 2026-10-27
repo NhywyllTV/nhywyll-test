@@ -1,0 +1,1626 @@
+/* ==========================================================================
+   Nhywyll – design "Sky and Sea" (Entwurf E, October 2026)
+   Dark theme = deep water (indigo), light theme = sky (mint).
+   Colors only through the variables below – see DEVELOPMENT.md.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Marcellus";
+  src: url("/fonts/Marcellus-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* Deep water (dark, default) */
+:root {
+  --bg: #2b2d55;
+  --panel: #383b6b;
+  --line: #4a4e85;
+  --text: #f3f4ff;
+  --text-2: #d5d7f2;
+  --muted: #b4b7dd;
+  --accent: #90dbdb;
+  --cta: #ffd763;
+  --on-cta: #23264a;
+  --link: #90dbdb;
+  --link-hover: #c9f1f1;
+  --card-bg: #31345f; /* dark cards on Links (variant L2) */
+  --card-fg: #f3f4ff;
+  --art-bg: #24264a; /* backdrop behind uncropped artworks in credit cards */
+  --live: #c62f3f;
+  --track: #ffffff; /* bird footprint after a click */
+  --track-shadow: rgba(35, 38, 74, 0.9);
+  --badge-1-bg: #ff6cb2;
+  --badge-1-fg: #23264a;
+  --badge-2-bg: #7266ca;
+  --badge-2-fg: #ffffff;
+  --badge-3-bg: #ffd763;
+  --badge-3-fg: #23264a;
+
+  --font-display: "Marcellus", Georgia, serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --page-width: 1160px;
+  --gutter: 40px;
+
+  --z-header: 5000;
+  --z-widget: 6500;
+  --z-banner: 7000;
+  --z-menu: 11000; /* open phone menu covers the cookie banner (WCAG 2.4.11) */
+  --z-effects: 9000;
+  --navbar-bg: #181a33; /* sticky nav bar (variant N2) */
+  --navbar-line: var(--line);
+
+  color-scheme: dark;
+}
+
+/* Sky (light) */
+.light-theme {
+  /* Variant L3 (Jean, 27.10.2026): white page, the mint "sky" lives in the nav bar;
+     panels take the pale mint so they still stand out on white. */
+  --bg: #ffffff;
+  --panel: #eefaf9;
+  --line: #bfe3e2;
+  --text: #23264a;
+  --text-2: #3d4170;
+  --muted: #4f5578;
+  --accent: #555995;
+  --cta: #ff9434;
+  --on-cta: #23264a;
+  --link: #3b3f8a;
+  --link-hover: #23264a;
+  --card-bg: #d6f2f1;
+  --card-fg: #23264a;
+  --art-bg: #e1f3f2;
+  --track: #555995;
+  --track-shadow: rgba(255, 255, 255, 0.9);
+  --navbar-bg: #90dbdb;
+  --navbar-line: #6fc3c3;
+
+  color-scheme: light;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  overflow-x: clip;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--link);
+}
+a:hover {
+  color: var(--link-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+/* Untranslated keys stay invisible until main.ts has filled in the texts
+   (class set by the early script in head-common.html). Layout is kept, so nothing jumps. */
+.i18n-pending [data-i18n],
+.i18n-pending [data-i18n-html] {
+  visibility: hidden;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 12000;
+  padding: 10px 16px;
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 6px;
+}
+.skip-link:focus {
+  left: 16px;
+}
+
+.container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+main {
+  position: relative;
+  display: block;
+}
+main:focus {
+  outline: none;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 24px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--on-cta);
+  background: var(--cta);
+  border: 2px solid var(--cta);
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover {
+  color: var(--on-cta);
+}
+.btn-secondary {
+  color: var(--text);
+  background: transparent;
+  border-color: var(--muted);
+}
+.btn-secondary:hover {
+  color: var(--text);
+}
+
+/* ---------- Header: banner (scrolls away) + thin nav bar (stays at the top) ---------- */
+html {
+  /* Anchor jumps (e.g. /imprint#privacy) must not end under the sticky bar. */
+  scroll-padding-top: 64px;
+}
+.site-header {
+  position: relative;
+  overflow: hidden;
+  background: #1b3a6b;
+}
+.banner-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: blur(24px) brightness(0.8);
+  transform: scale(1.15);
+}
+/* The sharp artwork: right-aligned, 55 % wide, fading in from the left. */
+.banner-art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 22%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%);
+  mask-image: linear-gradient(90deg, transparent, #000 30%);
+}
+/* Darkens the left side a little so the white logo stays readable on the artwork. */
+.banner-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(16, 18, 48, 0.55), rgba(16, 18, 48, 0) 60%);
+}
+
+.site-header .hdr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: var(--page-width);
+  position: relative;
+  margin: 0 auto;
+  padding: 60px var(--gutter);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-link {
+  display: block;
+  line-height: 0;
+}
+.logo {
+  height: 96px;
+  width: auto;
+  margin: -10px 0;
+}
+
+.stream-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.live-badge {
+  color: #ffffff;
+  background: var(--live);
+  letter-spacing: 0.08em;
+}
+.live-badge:hover {
+  color: #ffffff;
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.schedule-badge {
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--muted);
+}
+.schedule-badge:hover {
+  color: var(--text);
+}
+
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--navbar-bg);
+  border-top: 1px solid var(--navbar-line);
+  border-bottom: 1px solid var(--navbar-line);
+}
+.nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: var(--page-width);
+  min-height: 48px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.nav-inner {
+  justify-content: center;
+}
+#site-nav ul {
+  justify-content: center;
+}
+.nav-stream-item {
+  display: flex;
+  margin: 0 6px;
+}
+/* The badges are links inside the nav, but keep their own pill look. */
+#site-nav .stream-badge {
+  display: inline-flex;
+  padding: 6px 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.2;
+  border-bottom: 0;
+}
+#site-nav .stream-badge.hidden {
+  display: none;
+}
+.nav-stream-mobile {
+  display: none;
+}
+#site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#site-nav a {
+  display: block;
+  padding: 9px 14px;
+  line-height: 1.5;
+  color: var(--text-2);
+  text-decoration: none;
+}
+#site-nav a:hover {
+  color: var(--text);
+}
+#site-nav a[aria-current="page"] {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 6px;
+}
+
+
+.icon-btn,
+.pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--muted);
+  cursor: pointer;
+}
+.icon-btn {
+  width: 44px;
+  padding: 0;
+  border-radius: 50%;
+}
+.pill-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+:root:not(.light-theme) .theme-icon-moon {
+  display: none;
+}
+:root:not(.light-theme) .theme-icon-sun {
+  display: block;
+}
+
+/* Language menu */
+.language-switcher {
+  position: relative;
+}
+.flag-icon {
+  display: block;
+  width: 22px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.lang-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 200px;
+  padding: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(10, 8, 40, 0.2);
+  z-index: var(--z-widget);
+}
+.language-switcher.open .lang-menu {
+  display: block;
+}
+.lang-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.lang-opt.active {
+  background: var(--bg);
+  font-weight: 700;
+}
+.lang-opt.active::after {
+  content: "\2713";
+  margin-left: auto;
+  color: var(--accent);
+}
+
+/* Phone menu button (hidden on wide screens) */
+.menu-btn {
+  display: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.menu-btn .icon-close {
+  display: none;
+}
+.menu-btn.open .icon-close {
+  display: block;
+}
+.menu-btn.open .icon-open {
+  display: none;
+}
+
+/* Phones: the bar shows schedule/LIVE and the menu button; the list opens below it. */
+@media (max-width: 600px) {
+  :root {
+    --gutter: 16px;
+  }
+  .site-header .hdr {
+    padding: 24px var(--gutter);
+    gap: 10px;
+  }
+  .logo {
+    height: 52px;
+    margin: 0;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .nav-inner {
+    padding: 4px var(--gutter);
+  }
+  .menu-btn {
+    display: flex;
+    padding: 6px 12px;
+    gap: 6px;
+  }
+  .nav-inner {
+    justify-content: space-between;
+  }
+  /* Bar: schedule/LIVE left, menu button right. The list below has no schedule entry. */
+  .nav-stream-mobile {
+    display: flex;
+  }
+  .menu-btn {
+    order: 2;
+  }
+  #site-nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+  #site-nav .nav-stream-item {
+    display: none;
+  }
+  #site-nav ul {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+    padding: 8px 0 12px;
+  }
+  #site-nav ul.open {
+    display: flex;
+  }
+  #site-nav a {
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 24px;
+  }
+  .nav-bar.menu-open {
+    z-index: var(--z-menu);
+  }
+}
+@media (max-width: 380px) {
+  .site-header .hdr {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+  .logo {
+    height: 44px;
+  }
+  .brand {
+    gap: 6px;
+  }
+}
+
+/* ---------- Art bands (blurred copy of the artwork behind it) ---------- */
+.art-band {
+  position: relative;
+  overflow: hidden;
+  /* No own background: the band's layers sit below the feathers (z-index -1),
+     the artwork above them, so feathers also fall past the top of the page. */
+  padding: 48px 0 72px;
+}
+.art-band-bg {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: calc(100% + 120px);
+  height: calc(100% + 120px);
+  max-width: none;
+  object-fit: cover;
+  /* Only a faint hint of the artwork's colors (Jean chose variant A2, 26.10.2026). */
+  z-index: -2;
+  filter: blur(56px) saturate(0.6);
+  opacity: 0.35;
+  transform: scale(1.1);
+}
+.art-band-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: -2;
+  pointer-events: none;
+}
+.art-band-fade.top {
+  top: 0;
+  background: linear-gradient(to top, transparent, var(--bg));
+}
+.art-band-fade.bottom {
+  bottom: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+}
+.art-figure {
+  position: relative;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.art-figure > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(10, 8, 40, 0.45);
+}
+.art-credit {
+  position: absolute;
+  right: calc(var(--gutter) + 16px);
+  bottom: 16px;
+  margin: 0;
+  padding: 4px 12px;
+  background: rgba(20, 18, 50, 0.8);
+  border-radius: 4px;
+  font-size: 14px;
+  color: #e6e3fa;
+}
+.art-credit a {
+  color: #ffffff;
+}
+.art-band.small .art-figure {
+  max-width: 640px;
+}
+.art-band.small {
+  padding: 28px 0 40px;
+}
+
+/* Home intro: logo, subtitle and badges in one row, wrapping when space runs out. */
+.home-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+.hero-title {
+  margin: 0;
+  line-height: 0;
+}
+.hero-title img {
+  display: block;
+  width: auto;
+  height: 72px;
+}
+.hero-sub {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--text);
+}
+@media (max-width: 600px) {
+  .home-intro {
+    gap: 10px 16px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .hero-title img {
+    height: 56px;
+  }
+  .hero-sub {
+    font-size: 22px;
+  }
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.badge {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.badge-1 {
+  background: var(--badge-1-bg);
+  color: var(--badge-1-fg);
+}
+.badge-2 {
+  background: var(--badge-2-bg);
+  color: var(--badge-2-fg);
+}
+.badge-3 {
+  background: var(--badge-3-bg);
+  color: var(--badge-3-fg);
+}
+
+/* ---------- Page intro and sections ---------- */
+.page-intro {
+  padding: 56px 0 40px;
+}
+.page-title {
+  margin: 0 0 12px;
+  font-size: clamp(36px, 7vw, 60px);
+  line-height: 1.08;
+}
+.page-lead {
+  margin: 0;
+  max-width: 36em;
+  font-size: 20px;
+  color: var(--text-2);
+}
+.title-with-emote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin: 0 0 12px;
+}
+.title-with-emote .page-title {
+  margin: 0;
+}
+.title-emote {
+  width: 72px;
+  height: 72px;
+}
+
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+}
+.section-title {
+  margin: 0 0 24px;
+  font-size: 36px;
+}
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin: 0 0 24px;
+}
+/* Secondary link next to a section title, in the same pill shape as the
+   schedule button (a plain underlined link looked out of place there). */
+.pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+}
+.pill-link:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.section-head .section-title {
+  margin: 0;
+}
+.section-lead {
+  margin: -8px 0 24px;
+  color: var(--text-2);
+}
+.muted {
+  color: var(--muted);
+}
+
+/* Home: who I am */
+.who-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+.who-text {
+  flex: 999 1 320px;
+  min-width: 0;
+}
+.who-text p {
+  margin: 0 0 16px;
+  max-width: 40em;
+}
+.who-figure {
+  flex: 0 1 360px;
+  margin: 0;
+}
+.who-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.who-figure figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Home: Shorts */
+/* Always exactly one row (Jean, 27.10.2026): as many Shorts as fit at about
+   180px each, the rest is hidden instead of starting a half-empty second row.
+   Phones keep 2 (rule further down). */
+#shorts-section {
+  container-type: inline-size;
+}
+.shorts-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@container (max-width: 979px) {
+  .shorts-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .shorts-grid li:nth-child(n + 5) {
+    display: none;
+  }
+}
+@container (max-width: 779px) {
+  .shorts-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .shorts-grid li:nth-child(n + 4) {
+    display: none;
+  }
+}
+@container (max-width: 579px) {
+  .shorts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .shorts-grid li:nth-child(n + 3) {
+    display: none;
+  }
+}
+.short-link {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+}
+.short-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.short-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.short-play {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(20, 18, 50, 0.75);
+  color: #ffffff;
+}
+.short-title {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+/* Phones: only the two newest Shorts, side by side. */
+@media (max-width: 600px) {
+  .shorts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .shorts-grid li:nth-child(n + 3) {
+    display: none;
+  }
+  .short-title {
+    font-size: 14px;
+  }
+  .short-play {
+    left: 8px;
+    bottom: 8px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Home: FAQ (details/summary, opens without animation) */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.faq-item {
+  background: var(--panel);
+  border-radius: 6px;
+}
+.faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-mark {
+  color: var(--accent);
+  font-size: 24px;
+  line-height: 1;
+}
+.faq-mark::before {
+  content: "+";
+}
+.faq-item[open] .faq-mark::before {
+  content: "\2212";
+}
+.faq-item p {
+  margin: 0;
+  padding: 0 20px 16px;
+  color: var(--text-2);
+}
+
+/* Panel with accent line (community box, mail cards) */
+.accent-panel {
+  background: var(--panel);
+  border-top: 2px solid var(--accent);
+  border-radius: 0 0 6px 6px;
+  padding: 28px 32px;
+}
+.cta-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  align-items: center;
+}
+.cta-panel p {
+  flex: 999 1 300px;
+  margin: 0;
+  color: var(--text-2);
+}
+
+/* ---------- Links ---------- */
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.channel-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  padding: 28px 16px 22px;
+  background: var(--card-bg);
+  color: var(--card-fg);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  text-decoration: none;
+}
+.channel-card:hover {
+  color: var(--card-fg);
+}
+.channel-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.channel-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+}
+.channel-emote {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 48px;
+  height: 48px;
+}
+
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 20px;
+  max-width: 780px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.partner-card {
+  display: block;
+  padding: 16px;
+  background: var(--card-bg);
+  color: var(--card-fg);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  text-decoration: none;
+  text-align: center;
+}
+.partner-card:hover {
+  color: var(--card-fg);
+}
+/* The green Razer logo disappears on the card colors (1.0-1.2:1),
+   so it is shown in one color instead: dark on light cards, white on dark cards. */
+.partner-logo.logo-mono {
+  filter: brightness(0) saturate(100%);
+  opacity: 0.85;
+}
+:root:not(.light-theme) .partner-logo.logo-mono {
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+.partner-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  margin-bottom: 14px;
+}
+.partner-logo {
+  height: 52px;
+  width: auto;
+  max-width: 80%;
+}
+.partner-text {
+  display: block;
+  padding: 0 6px;
+  font-size: 16px;
+}
+
+/* ---------- Contact ---------- */
+.mail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 24px;
+}
+.mail-card {
+  padding: 32px 36px;
+}
+.mail-card h2 {
+  margin: 0 0 12px;
+  font-size: 32px;
+}
+.mail-card p {
+  margin: 0 0 20px;
+  color: var(--text-2);
+}
+.mail-address {
+  margin: 0 !important;
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+.mail-address a {
+  color: var(--text);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Same width as the mail cards above, so the right side is not left empty. */
+  max-width: 1080px;
+}
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  font: inherit;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-radius: 6px;
+}
+.contact-form textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+.contact-form .btn {
+  align-self: flex-start;
+}
+.form-note {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+.contact-success-msg {
+  display: none;
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--panel);
+  border-left: 4px solid var(--accent);
+  color: var(--text);
+}
+
+/* ---------- Credits ---------- */
+.model-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 48px;
+  align-items: flex-start;
+}
+.model-figure {
+  flex: 3 1 520px;
+  min-width: 0;
+  margin: 0;
+}
+/* The reference sheet has a transparent background. */
+.model-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 24px;
+  background: var(--art-bg);
+  border-radius: 8px;
+}
+.model-figure figcaption {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.model-people {
+  flex: 2 1 300px;
+  min-width: 0;
+}
+.role-list {
+  margin: 0 0 32px;
+}
+.role-list div {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.role-list dt {
+  font-size: 15px;
+  color: var(--muted);
+}
+.role-list dd {
+  margin: 2px 0 0;
+}
+.person {
+  font-family: var(--font-display);
+  font-size: 26px;
+}
+.sub-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.role {
+  display: block;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 24px;
+}
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.artist-img {
+  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  padding: 12px;
+  background: var(--art-bg);
+}
+.artist-thumbs {
+  display: flex;
+  gap: 8px;
+  padding: 8px 8px 0;
+}
+.artist-thumbs img {
+  display: block;
+  height: 72px;
+  width: auto;
+  border-radius: 4px;
+}
+.artist-body {
+  padding: 14px 18px 18px;
+}
+.artist-body .person {
+  font-size: 26px;
+}
+.artist-body p {
+  margin: 2px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.stream-credits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 48px;
+  align-items: center;
+}
+.emote-row {
+  flex: 1 1 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.emote-row img {
+  width: 88px;
+  height: 88px;
+}
+.people-grid {
+  flex: 2 1 480px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.people-grid .person {
+  font-size: 22px;
+}
+
+/* ---------- Imprint & privacy ---------- */
+.legal-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.legal-nav a {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+.legal-text {
+  max-width: 42em;
+}
+.legal-text h3 {
+  margin: 28px 0 6px;
+  font-size: 22px;
+}
+.legal-text h3:first-child {
+  margin-top: 0;
+}
+.legal-text p {
+  margin: 0;
+  color: var(--text-2);
+}
+
+/* ---------- 404 ---------- */
+.notfound {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 80px 0 120px;
+  text-align: center;
+}
+.notfound-emote {
+  display: block;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 16px;
+}
+.notfound-code {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 96px;
+  line-height: 1;
+  color: var(--accent);
+}
+.notfound h1 {
+  margin: 0 0 16px;
+}
+.notfound p {
+  margin: 0 0 32px;
+  font-size: 20px;
+  color: var(--text-2);
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--line);
+}
+.site-footer .ftr {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 24px var(--gutter);
+  font-size: 15px;
+  color: var(--muted);
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+}
+/* Room below the footer so the floating "back to top" button never covers
+   the language and theme buttons when scrolled to the very bottom. */
+.site-footer {
+  padding-bottom: 72px;
+}
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+.footer-settings {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* In the footer the language list opens upwards. */
+.footer-settings .lang-menu {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+@media (max-width: 600px) {
+  .footer-right {
+    align-items: flex-start;
+  }
+  .footer-settings .lang-menu {
+    left: 0;
+    right: auto;
+  }
+}
+.easter-hint-container {
+  width: 44px;
+  height: 44px;
+  margin: -12px 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+/* ---------- Back to top ---------- */
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: var(--z-widget);
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(10, 8, 40, 0.2);
+  cursor: pointer;
+}
+.back-to-top.show {
+  display: inline-flex;
+}
+.back-to-top-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+/* Phones: a small round button with only the chicken, so it covers less content.
+   The aria-label still says "Back to top". */
+@media (max-width: 600px) {
+  .back-to-top {
+    right: 12px;
+    bottom: 12px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
+  }
+  .back-to-top-text {
+    display: none;
+  }
+}
+
+/* ---------- Cookie banner (sticky, must stay the last element in <body>) ---------- */
+.cookie-banner {
+  position: sticky;
+  bottom: 16px;
+  z-index: var(--z-banner);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: flex-end;
+  max-width: 760px;
+  margin: 0 auto 16px;
+  padding: 24px 28px;
+  background: var(--panel);
+  border-top: 3px solid var(--accent);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 12px 40px rgba(10, 8, 40, 0.35);
+}
+.cookie-content {
+  flex: 999 1 320px;
+}
+.cookie-content h3 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+.cookie-content p {
+  margin: 0 0 8px;
+  color: var(--text-2);
+}
+.cookie-links {
+  font-size: 15px;
+  color: var(--muted);
+}
+.cookie-buttons {
+  flex: 1 1 240px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+/* Both choices look the same, so neither is pushed. */
+.cookie-buttons .btn {
+  flex: 1 1 140px;
+  color: var(--text);
+  background: transparent;
+  border-color: var(--muted);
+}
+/* Phones: compact banner so the page stays visible behind it. */
+@media (max-width: 600px) {
+  .cookie-banner {
+    margin: 0 8px 8px;
+    bottom: 8px;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .cookie-content h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .cookie-content p {
+    font-size: 15px;
+    line-height: 1.45;
+    margin-bottom: 4px;
+  }
+  .cookie-buttons {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .cookie-buttons .btn {
+    flex: 1 1 0;
+    min-height: 44px;
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+}
+
+/* ---------- Effects (all off with prefers-reduced-motion) ---------- */
+/* Feathers sit behind all content: body is its own stacking context,
+   so z-index -1 paints above the body background but below everything else. */
+body {
+  isolation: isolate;
+}
+#particles-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* A real feather silhouette (vane with notches, shaft, quill), variant F2. */
+.feather-particle {
+  position: absolute;
+  top: -40px;
+  width: 30px;
+  height: 60px;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 48'%3E%3Cpath fill-rule='evenodd' d='M13 1C7.5 6 4 15 4.6 26c.4 7 3.4 12 6.8 15.5h1.2C15.5 37 18.6 31 18.4 22 18.2 13 16.4 6 13 1zM12.2 4.5c-.3 12-.4 24-.4 37h.8c0-13 .1-25 .4-37zM4.7 22.5l5.6-2.6-5.4 4.4z M5.6 31.5l5.2-3.3-4.6 4.7z M18.4 15.5l-5.2-1.4 5.2 3.6z M18.2 26l-4.9-1.6 4.6 3.6z'/%3E%3Cpath d='M11.4 41.5h1.2l-.4 6h-.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 48'%3E%3Cpath fill-rule='evenodd' d='M13 1C7.5 6 4 15 4.6 26c.4 7 3.4 12 6.8 15.5h1.2C15.5 37 18.6 31 18.4 22 18.2 13 16.4 6 13 1zM12.2 4.5c-.3 12-.4 24-.4 37h.8c0-13 .1-25 .4-37zM4.7 22.5l5.6-2.6-5.4 4.4z M5.6 31.5l5.2-3.3-4.6 4.7z M18.4 15.5l-5.2-1.4 5.2 3.6z M18.2 26l-4.9-1.6 4.6 3.6z'/%3E%3Cpath d='M11.4 41.5h1.2l-.4 6h-.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0;
+  transform: scale(var(--feather-scale, 1));
+  animation-name: float-feather;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+/* Window not focused: feathers stop where they are instead of falling on in jerky steps. */
+.effects-paused .feather-particle {
+  animation-play-state: paused;
+}
+@keyframes float-feather {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(var(--feather-scale, 1));
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.55;
+  }
+  90% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate(60px, 110vh) rotate(220deg) scale(var(--feather-scale, 1));
+    opacity: 0;
+  }
+}
+
+.bird-track {
+  position: fixed;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  z-index: var(--z-effects);
+  background-color: var(--track);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 20v-5.5l-4-3 .8-.6 3.2 2.6V7h2v6.5l3.2-2.6.8.6-4 3V20h-2zM9 4.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 20v-5.5l-4-3 .8-.6 3.2 2.6V7h2v6.5l3.2-2.6.8.6-4 3V20h-2zM9 4.5a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z'/%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 2px var(--track-shadow));
+  transform: translate(-50%, -50%) rotate(var(--track-rot, 0deg)) scale(0.4);
+  animation: track-fade 0.8s ease-out forwards;
+}
+@keyframes track-fade {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--track-rot, 0deg)) scale(0.4);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--track-rot, 0deg)) scale(1);
+    opacity: 0;
+  }
+}
+
+.easter-chicken {
+  position: fixed;
+  z-index: var(--z-effects);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  animation-duration: 8s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes chicken-run {
+  0% { transform: translateX(0) scaleX(-1); }
+  25% { transform: translateX(32vw) translateY(-14px) scaleX(-1); }
+  50% { transform: translateX(64vw) scaleX(-1); }
+  75% { transform: translateX(96vw) translateY(-14px) scaleX(-1); }
+  100% { transform: translateX(130vw) scaleX(-1); }
+}
+@keyframes chicken-run-rtl {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-32vw) translateY(-14px); }
+  50% { transform: translateX(-64vw); }
+  75% { transform: translateX(-96vw) translateY(-14px); }
+  100% { transform: translateX(-130vw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #particles-container,
+  .feather-particle,
+  .bird-track,
+  .easter-chicken {
+    display: none !important;
+    animation: none !important;
+  }
+}

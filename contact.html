@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title data-i18n="page_title_contact">page_title_contact</title>
+    <load src="/src/components/head-common.html" />
+    <meta name="description" content="Get in touch with Nhywyll. Contact for business inquiries, partnerships, or fan support regarding Minecraft streams and VTubing.">
+    <meta name="keywords" content="contact VTuber, streamer contact, business inquiries, Nhywyll email, Minecraft collaborations">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://nhywyll.com/contact">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nhywyll.com/contact">
+    <meta property="og:title" content="Contact | Nhywyll">
+    <meta property="og:description" content="Get in touch with Nhywyll for business or fan inquiries.">
+    <meta property="og:image" content="https://nhywyll.com/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Nhywyll logo on the artwork Star Sky by Kekentang">
+
+</head>
+<body>
+    <load src="/src/components/header.html" />
+    <main id="main-content" tabindex="-1">
+        <div class="container">
+            <section class="page-intro" style="padding-bottom: 24px">
+                <div class="title-with-emote">
+                    <h1 class="page-title" data-i18n="contact_title">contact_title</h1>
+                    <img src="/images/Emotes/chu.webp" alt="" class="title-emote" width="72" height="72">
+                </div>
+            </section>
+        </div>
+
+        <!-- Watergoddess holds out a pearl: fits "reach out" (Jean, 27.10.2026). Shown smaller. -->
+        <section class="art-band small" aria-label="Artwork">
+            <img src="/images/artwork-library/card/VGen_Keke%20Watergoddess.webp" alt="" aria-hidden="true" class="art-band-bg" width="688" height="387">
+            <div class="art-band-fade top" aria-hidden="true"></div>
+            <div class="art-band-fade bottom" aria-hidden="true"></div>
+            <figure class="art-figure">
+                <img src="/images/artwork-library/VGen_Keke%20Watergoddess.webp" alt="alt_art_keke_watergoddess" data-i18n-alt="alt_art_keke_watergoddess" width="1200" height="675" loading="lazy">
+                <figcaption class="art-credit">“Watergoddess” <span data-i18n="art_by">by</span> <a href="/credits">Kekentang</a></figcaption>
+            </figure>
+        </section>
+
+        <div class="container">
+            <section aria-label="Email" style="padding: 40px 0">
+                <div class="mail-grid">
+                    <article class="accent-panel mail-card" aria-labelledby="business">
+                        <h2 id="business" data-i18n="contact_business_title">contact_business_title</h2>
+                        <p data-i18n="contact_business_text">contact_business_text</p>
+                        <p class="mail-address"><a href="mailto:contact@nhywyll.com">contact@nhywyll.com</a></p>
+                    </article>
+                    <article class="accent-panel mail-card" aria-labelledby="fans">
+                        <h2 id="fans" data-i18n="contact_fan_title">contact_fan_title</h2>
+                        <p data-i18n="contact_fan_text">contact_fan_text</p>
+                        <p class="mail-address"><a href="mailto:fan@nhywyll.com">fan@nhywyll.com</a></p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" aria-labelledby="quick" style="padding-bottom: 72px">
+                <h2 id="quick" class="section-title" style="margin-bottom: 8px" data-i18n="contact_quick_title">contact_quick_title</h2>
+                <p class="section-lead" style="margin-top: 0" data-i18n="contact_quick_text">contact_quick_text</p>
+                <form id="contact-form" class="contact-form">
+                    <p class="form-note" data-i18n="contact_mail_note">contact_mail_note</p>
+                    <label for="name"><span data-i18n="contact_label_name">contact_label_name</span>
+                        <input id="name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="contact_placeholder_name" data-i18n-placeholder="contact_placeholder_name" required>
+                    </label>
+                    <label for="message"><span data-i18n="contact_label_message">contact_label_message</span>
+                        <textarea id="message" name="message" maxlength="1500" placeholder="contact_placeholder_message" data-i18n-placeholder="contact_placeholder_message" required></textarea>
+                    </label>
+                    <p class="form-note" data-i18n-html="contact_privacy_notice">contact_privacy_notice</p>
+                    <button type="submit" class="btn" data-i18n="contact_button">contact_button</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <load src="/src/components/footer.html" />
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 741 390">
+    <path fill="#fff" d="M0 0h741v390H0z"/>
+    <path fill="#b22234" d="M0 0h741v30H0v30h741v30H0v30h741v30H0v30h741v30H0v30h741v30H0v30h741v30H0v30h741v30H0z"/>
+    <path fill="#3c3b6e" d="M0 0h296.4v210H0z"/>
+    <g fill="#fff">
+        <g id="d">
+            <g id="c">
+                <g id="b">
+                    <path id="a" d="M30 42l5.7 17.6-15-10.9 15 10.9 5.7-17.6L47 59.6l-15-10.9 15 10.9-15 10.9z" transform="scale(.2)"/>
+                    <use href="#a" x="310"/>
+                    <use href="#a" x="620"/>
+                    <use href="#a" x="930"/>
+                    <use href="#a" x="1240"/>
+                </g>
+                <use href="#b" y="140"/>
+                <use href="#b" y="280"/>
+                <use href="#b" y="420"/>
+                <use href="#b" y="560"/>
+            </g>
+            <use href="#c" x="155" y="70"/>
+        </g>
+    </g>
+</svg>
