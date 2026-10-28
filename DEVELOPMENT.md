@@ -200,24 +200,28 @@ Alles hier wurde schon einmal als „Fehler“ oder „Verbesserung“ vorgeschl
 9. **Keine Zahlen** (Follower, Reichweite) und **kein Media-Kit-Knopf** – Media Kit nur auf Anfrage.
 10. **Dunkles Startbild im hellen Theme** liegt am Bild (Watergoddess ist dunkel), nicht am Theme.
 11. **Werbekennzeichnung nur einmal** auf der Links-Seite: im Satz unter „Partners & Affiliates“ (`partner_subtitle`: „Affiliate-Links, Werbung“) plus `rel="sponsored"` an den Links. Nicht zusätzlich in jeder Partner-Karte (26.10.2026 entfernt).
+12. **Theme-Knopf ohne `aria-pressed`.** Seine Beschriftung nennt die Aktion („Zum dunklen Modus wechseln“); ein Gedrückt-Zustand dazu wäre widersprüchlich.
 
 ## 📌 Offene Punkte
 
-Gefunden, aber noch **nicht** behoben (Stand 26.10.2026):
+Gefunden, aber noch **nicht** behoben (Stand 28.10.2026):
 
-1. **Meta-Beschreibungen und Open-Graph-Texte werden nicht übersetzt.** `description`, `og:title` und `og:description` stehen nur englisch als feste `content`-Attribute. Ein Fix bräuchte einen neuen Haken (`data-i18n-content`).
+1. **Meta-Beschreibungen und Open-Graph-Texte nur englisch.** Per JavaScript übersetzen bringt **nichts**: Link-Vorschauen (Discord, WhatsApp, Bluesky) lesen die Seite ohne JavaScript, und Suchmaschinen zeigen die eine Fassung unter der Adresse. Deutsch ginge nur mit eigenen Adressen pro Sprache (Punkt 2). Bis dahin bleibt Englisch (passt zu Bewusste Entscheidung 3).
 2. **Sprache nicht in der URL.** Keine getrennten URLs pro Sprache, kein `hreflang`. Suchmaschinen sehen nur die englische Fassung. Erst bei mehr Sprachen relevant.
 3. **Offene Frage „Mehr Sprachdateien“:** (a) weitere Sprachen wie `fr.ts` oder (b) `de.ts`/`en.ts` pro Seite aufteilen? Für (b) müsste `src/lang/index.ts` die Teile zusammenführen.
-4. **Aus dem Live-Review (26.10.2026)**, noch nicht entschieden:
-   - Nach einem SPA-Seitenwechsel wird der neue Seitentitel Screenreadern nicht angesagt; der Fokus auf `<main>` hat keinen sichtbaren Rahmen.
-   - Theme-Knopf ohne `aria-pressed`.
-   - Imprint und 404 ohne Einleitungssatz.
-   - Kein Knopf auf der Seite, um die Effekte abzuschalten (nur über die Bewegungs-Einstellung des Geräts).
-   - Das offene Handy-Menü schließt sich nicht, wenn man mit Tab hinausgeht.
-   - Fokusrahmen (Indigo) auf dem Mint-Kopfband: Kontrast nicht gemessen.
-   - ~~Smol Bean wirkt auf der Startseite klein.~~ Behoben 28.10.2026: Die Datei ist 500×250 px, das Bild selbst nur ca. 186×158 in der Mitte (Rest durchsichtig). `.who-art` blendet nur den leeren Rand aus (feste Prozentwerte in `styles.css`), Bild 240 px breit und senkrecht auf Höhe des Textes (`.who-grid` `align-items: center`). Wird die Datei ersetzt, die Werte neu messen.
 
-**Live-Stand (26.10.2026):** test.nhywyll.com zeigt das neue Design „Himmel und Wasser“. nhywyll.com läuft noch mit dem alten Design (letztes `deploy:prod` am 20.10.2026, `facb496`). `deploy:prod` erst, wenn Jean es sagt.
+Erledigt aus dem Live-Review (26.10.2026), zur Nachverfolgung:
+- Seitentitel wird nach SPA-Seitenwechsel angesagt (`aria-live`-Ansager in `main.ts`).
+- Handy-Menü schließt sich beim Hinaus-Tabben (`focusout`).
+- Fokusrahmen Indigo `#555995` auf der Mint-Leiste `#c4eaea`: 5,0:1 (gemessen 28.10.2026).
+- Imprint und 404 haben einen Einleitungssatz (`imprint_lead`, `404_text`).
+- **Effekte abschaltbar** (28.10.2026, WCAG 2.2.2): Knopf „Effekte: an/aus“ im Footer neben Sprache und Theme (`#effects-toggle`, `aria-pressed`, Text zeigt den Zustand). Gemerkt in `localStorage` „effects“ (`on`/`off`), schaltet Federn und Vogelspuren. Bei „weniger Bewegung“ im Gerät sind die Effekte immer aus und der Knopf ausgeblendet.
+- **Shorts mit Datum** (28.10.2026): `fetch-shorts.mjs` holt `published` aus dem Feed, unter jedem Titel steht das Upload-Datum in der Sprache des Besuchers (`formatShortDate`, z. B. „27. Okt. 2026“). Aktuell ist es nach jedem Build/Push.
+- **Cookie-Fenster verdeckt keinen Tastaturfokus mehr** (WCAG 2.4.11, 28.10.2026): solange es offen ist, setzt `main.ts` `scroll-padding-bottom` auf seine Höhe + 24 px, markierte Elemente rücken darüber.
+- **Sternbild-Namen mit dunklem Hintergrund** (28.10.2026), damit Flügellinien nicht durch die Schrift laufen (fiel bei 768 px auf); Tastaturfokus unterstreicht den Namen wie Maus-darüber.
+- Smol Bean: Die Datei ist 500×250 px, das Bild selbst nur ca. 186×158 in der Mitte (Rest durchsichtig). `.who-art` blendet nur den leeren Rand aus (feste Prozentwerte in `styles.css`), Bild 240 px breit und senkrecht auf Höhe des Textes. Wird die Datei ersetzt, die Werte neu messen.
+
+**Live-Stand (28.10.2026):** test.nhywyll.com zeigt das neue Design „Himmel und Wasser“ (Repo `NhywyllTV/nhywyll-test`). nhywyll.com läuft noch mit dem alten Design (letztes `deploy:prod` am 20.10.2026, `facb496`). `deploy:prod` erst, wenn Jean es sagt.
 
 ---
 

@@ -24,6 +24,8 @@ async function main() {
     .map(([, entry]) => ({
       id: entry.match(/<yt:videoId>([\w-]{11})<\/yt:videoId>/)?.[1],
       title: decode(entry.match(/<title>([\s\S]*?)<\/title>/)?.[1] ?? "").trim(),
+      // Upload date (YYYY-MM-DD), shown under the title so visitors see how recent a Short is.
+      published: entry.match(/<published>(\d{4}-\d{2}-\d{2})/)?.[1],
     }))
     .filter((s) => s.id)
     .slice(0, COUNT);

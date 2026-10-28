@@ -142,6 +142,10 @@ function updateTexts() {
   document.documentElement.classList.remove("i18n-pending");
   updateLanguageUI();
   updateThemeLabel();
+  updateEffectsLabel();
+  document.querySelectorAll<HTMLTimeElement>("time.short-date").forEach((t) => {
+    t.textContent = formatShortDate(t.dateTime);
+  });
   updateMenuLabel();
 }
 
@@ -347,12 +351,21 @@ function setupTheme() {
 }
 
 // --- Latest Shorts (fetched at build time by scripts/fetch-shorts.mjs) ---
-type Short = { id: string; title: string };
+type Short = { id: string; title: string; published?: string };
 const shortsModules = import.meta.glob<Short[]>("./data/shorts.json", {
   eager: true,
   import: "default",
 });
 const SHORTS: Short[] = Object.values(shortsModules)[0] ?? [];
+
+// Upload date in the visitor's language, e.g. "27. Okt. 2026" / "Oct 27, 2026".
+function formatShortDate(iso: string) {
+  return new Date(`${iso}T12:00:00`).toLocaleDateString(currentLanguage, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
 
 function renderShorts() {
   const section = document.getElementById("shorts-section");
@@ -391,6 +404,13 @@ function renderShorts() {
       title.textContent = short.title;
 
       link.append(thumb, title);
+      if (short.published) {
+        const date = document.createElement("time");
+        date.className = "short-date";
+        date.dateTime = short.published;
+        date.textContent = formatShortDate(short.published);
+        link.append(date);
+      }
       li.append(link);
       return li;
     }),
@@ -744,21 +764,29 @@ function setupPageTransitions() {
 }
 
 // --- Background Effects & Bird Tracks ---
-function setupEffects() {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Off when the device asks for less motion, or when the visitor switched them off in the footer
+// (remembered in localStorage "effects"). Without the device setting the footer button can turn them on and off.
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let effectsOn = !reducedMotion && localStorage.getItem("effects") !== "off";
+let featherTimer: number | undefined;
 
-  // 1. Feather Particles Background
-  if (!prefersReducedMotion) {
+function updateEffectsLabel() {
+  const toggle = document.getElementById("effects-toggle");
+  if (!toggle) return;
+  // With the device setting there is nothing to switch, so the button is not shown.
+  toggle.hidden = reducedMotion;
+  const key = effectsOn ? "effects_on" : "effects_off";
+  const label = toggle.querySelector(".effects-label");
+  if (label) label.textContent = translations[currentLanguage]?.[key] ?? key;
+  toggle.setAttribute("aria-pressed", String(effectsOn));
+}
+
+function startFeathers() {
+  if (document.getElementById("particles-container")) return;
+  {
     const particlesContainer = document.createElement("div");
     particlesContainer.id = "particles-container";
     document.body.prepend(particlesContainer); // Ganz nach hinten
-
-    // Pause (not continue) while the window is not focused; resume where they stopped.
-    const updatePause = () =>
-      document.documentElement.classList.toggle("effects-paused", !document.hasFocus());
-    window.addEventListener("blur", updatePause);
-    window.addEventListener("focus", updatePause);
-    updatePause();
 
     const createFeather = () => {
       if (document.hidden || !document.hasFocus()) return;
@@ -783,17 +811,43 @@ function setupEffects() {
     };
 
     // Erzeuge periodisch neue Federn
-    setInterval(createFeather, 1500); // Seltener neue Federn für bessere Performance
+    featherTimer = window.setInterval(createFeather, 1500); // Seltener neue Federn für bessere Performance
 
     // Initial weniger Federn spawnen
     for (let i = 0; i < 8; i++) {
       createFeather();
     }
   }
+}
+
+function stopFeathers() {
+  window.clearInterval(featherTimer);
+  featherTimer = undefined;
+  document.getElementById("particles-container")?.remove();
+}
+
+function setupEffects() {
+  // 1. Feather Particles Background
+  // Pause (not continue) while the window is not focused; resume where they stopped.
+  const updatePause = () =>
+    document.documentElement.classList.toggle("effects-paused", !document.hasFocus());
+  window.addEventListener("blur", updatePause);
+  window.addEventListener("focus", updatePause);
+  updatePause();
+  if (effectsOn) startFeathers();
+
+  document.getElementById("effects-toggle")?.addEventListener("click", () => {
+    effectsOn = !effectsOn;
+    localStorage.setItem("effects", effectsOn ? "on" : "off");
+    if (effectsOn) startFeathers();
+    else stopFeathers();
+    updateEffectsLabel();
+  });
 
   // 2. Bird Track Click Effect
-  if (!prefersReducedMotion) {
+  {
     document.addEventListener("click", (e) => {
+      if (!effectsOn) return;
       // Enter/Space "clicks" have no pointer position (detail 0, x/y 0): no footprint in the corner.
       if (e.detail === 0) return;
       const track = document.createElement("div");
@@ -859,10 +913,20 @@ function setupCookieBanner(forceShow = false) {
   document.body.appendChild(banner);
   updateTexts(); // Update texts for the dynamically created banner
 
+  // Keyboard focus must not end up hidden behind the banner (WCAG 2.4.11): while it is
+  // shown, focused elements scroll to stay above it.
+  const root = document.documentElement;
+  const keepFocusVisible = new ResizeObserver(() => {
+    root.style.scrollPaddingBottom = `${banner.offsetHeight + 24}px`;
+  });
+  keepFocusVisible.observe(banner);
+
   const closeBanner = (status: "all" | "essential") => {
     localStorage.setItem("cookieConsent", status);
     // If focus was inside the banner, keep it on the page instead of losing it.
     const hadFocus = banner.contains(document.activeElement);
+    keepFocusVisible.disconnect();
+    root.style.scrollPaddingBottom = "";
     banner.remove();
     if (hadFocus) document.getElementById("main-content")?.focus({ preventScroll: true });
     if (status === "all") {

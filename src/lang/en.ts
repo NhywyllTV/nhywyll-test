@@ -162,4 +162,6 @@ export const en = {
   aria_theme_to_dark: "Switch to dark mode",
   aria_theme_to_light: "Switch to light mode",
   back_to_top: "Back to top",
+  effects_on: "Effects: on",
+  effects_off: "Effects: off",
 } satisfies Translation;

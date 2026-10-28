@@ -145,5 +145,7 @@ export const de: CompleteTranslation = {
     "aria_schedule_link": "Stream-Zeitplan auf Twitch (öffnet in neuem Tab)",
     "aria_theme_to_dark": "Zum dunklen Modus wechseln",
     "aria_theme_to_light": "Zum hellen Modus wechseln",
-    "back_to_top": "Nach oben"
+    "back_to_top": "Nach oben",
+    "effects_on": "Effekte: an",
+    "effects_off": "Effekte: aus"
 };
