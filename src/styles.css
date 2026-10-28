@@ -1042,46 +1042,163 @@ main .container > section.notfound {
 }
 
 /* ---------- Links ---------- */
+/* Social channels as a constellation of two wings (Jean, 28.10.2026): a bright body star at the
+   bottom, three channels per wing, rising and then bending like the Aries constellation.
+   The night sky looks the same in both themes. Nothing moves. Positions are percentages and
+   must match the line coordinates in links.html (.sky-wide / .sky-narrow). */
+.night-sky {
+  --sky-glow: rgba(150, 200, 255, 0.55);
+  position: relative;
+  height: 440px;
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    url("/images/night-sky-stars.svg") center / cover no-repeat,
+    radial-gradient(ellipse 38% 34% at 18% 22%, rgba(160, 95, 200, 0.45), transparent 72%),
+    radial-gradient(ellipse 34% 40% at 86% 78%, rgba(130, 85, 185, 0.5), transparent 72%),
+    radial-gradient(ellipse 30% 26% at 72% 12%, rgba(110, 80, 190, 0.35), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 40% 70%, rgba(80, 60, 170, 0.35), transparent 72%),
+    linear-gradient(160deg, #241a52, #2e2468 45%, #1a1440);
+}
+.sky-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 3px rgba(190, 220, 255, 0.8));
+}
+.sky-lines line {
+  stroke: rgba(215, 232, 255, 0.8);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+}
+/* Faint strokes hanging from the wing points, so the shape reads as wings. */
+.sky-lines line.feather {
+  stroke: rgba(215, 232, 255, 0.35);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 5;
+}
+.sky-narrow {
+  display: none;
+}
+.sky-body {
+  position: absolute;
+  left: 50%;
+  top: 86%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 8px rgba(180, 215, 255, 0.25), 0 0 14px 4px var(--sky-glow);
+  transform: translate(-50%, -50%);
+}
 .channel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 20px;
+  position: absolute;
+  inset: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+.channel-grid li {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+/* Order in the list: Twitch, YouTube, TikTok, Bluesky, Discord, Ko-fi. */
+.channel-grid li:nth-child(1) { left: 38%; top: 66%; }
+.channel-grid li:nth-child(2) { left: 62%; top: 66%; }
+.channel-grid li:nth-child(3) { left: 25%; top: 40%; }
+.channel-grid li:nth-child(4) { left: 11%; top: 50%; }
+.channel-grid li:nth-child(5) { left: 75%; top: 40%; }
+.channel-grid li:nth-child(6) { left: 89%; top: 50%; }
 .channel-card {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  height: 100%;
-  padding: 28px 16px 22px;
-  background: var(--card-bg);
-  color: var(--card-fg);
-  border: 1px solid var(--accent);
-  border-radius: 10px;
+  gap: 6px;
+  color: #f3f4ff;
   text-decoration: none;
 }
 .channel-card:hover {
-  color: var(--card-fg);
+  color: #f3f4ff;
+}
+/* A small white sparkle beside every channel. */
+.channel-card::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  filter: drop-shadow(0 0 4px #bcd8ff);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l1.6 10.4L24 12l-10.4 1.6L12 24l-1.6-10.4L0 12l10.4-1.6z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l1.6 10.4L24 12l-10.4 1.6L12 24l-1.6-10.4L0 12l10.4-1.6z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 .channel-logo {
-  width: 64px;
-  height: 64px;
+  box-sizing: content-box;
+  width: 32px;
+  height: 32px;
+  padding: 11px;
   object-fit: contain;
+  background: #f3f6ff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(200, 225, 255, 0.9), 0 0 20px 4px var(--sky-glow);
 }
 .channel-name {
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: 18px;
+  text-shadow: 0 1px 6px rgba(10, 8, 40, 0.9);
+}
+.channel-card:hover .channel-logo {
+  box-shadow: 0 0 0 3px #eaf3ff, 0 0 30px 8px rgba(170, 210, 255, 0.85);
+}
+.channel-card:hover .channel-name {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.channel-card:focus-visible {
+  outline: none;
+}
+.channel-card:focus-visible .channel-logo {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
 }
 .channel-emote {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 48px;
-  height: 48px;
+  top: -10px;
+  left: -34px;
+  width: 40px;
+  height: 40px;
+}
+/* Phones: the wings stand upright and the tips bend inwards, so the sky stays about one screen tall. */
+@media (max-width: 700px) {
+  .night-sky {
+    height: 470px;
+  }
+  .sky-wide {
+    display: none;
+  }
+  .sky-narrow {
+    display: block;
+  }
+  .sky-body {
+    top: 92%;
+  }
+  .channel-grid li:nth-child(1) { left: 34%; top: 72%; }
+  .channel-grid li:nth-child(2) { left: 66%; top: 72%; }
+  .channel-grid li:nth-child(3) { left: 17%; top: 46%; }
+  .channel-grid li:nth-child(4) { left: 29%; top: 16%; }
+  .channel-grid li:nth-child(5) { left: 83%; top: 46%; }
+  .channel-grid li:nth-child(6) { left: 71%; top: 16%; }
+  .channel-logo {
+    width: 26px;
+    height: 26px;
+    padding: 9px;
+  }
+  .channel-name {
+    font-size: 15px;
+  }
 }
 
 .partner-grid {
