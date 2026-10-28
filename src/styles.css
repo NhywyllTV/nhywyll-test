@@ -1139,11 +1139,13 @@ main .container > section.notfound {
   box-sizing: content-box;
   width: 32px;
   height: 32px;
-  padding: 11px;
+  padding: 13px;
   object-fit: contain;
-  background: #f3f6ff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(200, 225, 255, 0.9), 0 0 20px 4px var(--sky-glow);
+  /* The circle is painted as a background, not with border-radius: a rounded <img> also
+     cuts the logo itself to a circle (that clipped the corners of the Twitch logo). */
+  --ring: rgba(200, 225, 255, 0.9);
+  background: radial-gradient(circle closest-side, #f3f6ff calc(100% - 3px), var(--ring) calc(100% - 2.5px), var(--ring) calc(100% - 0.5px), transparent 100%);
+  filter: drop-shadow(0 0 8px var(--sky-glow));
 }
 .channel-name {
   font-family: var(--font-display);
@@ -1151,7 +1153,8 @@ main .container > section.notfound {
   text-shadow: 0 1px 6px rgba(10, 8, 40, 0.9);
 }
 .channel-card:hover .channel-logo {
-  box-shadow: 0 0 0 3px #eaf3ff, 0 0 30px 8px rgba(170, 210, 255, 0.85);
+  --ring: #eaf3ff;
+  filter: drop-shadow(0 0 14px rgba(170, 210, 255, 0.95));
 }
 .channel-card:hover .channel-name {
   text-decoration: underline;
@@ -1161,13 +1164,15 @@ main .container > section.notfound {
   outline: none;
 }
 .channel-card:focus-visible .channel-logo {
-  outline: 3px solid #ffffff;
-  outline-offset: 4px;
+  background: radial-gradient(circle closest-side, #f3f6ff calc(100% - 6px), #ffffff calc(100% - 5.5px), #ffffff calc(100% - 0.5px), transparent 100%);
+  filter: drop-shadow(0 0 14px rgba(170, 210, 255, 0.95));
 }
+/* Sits left of the circle, never on it: the card is as wide as its label, so it is placed
+   from the middle (circle radius 29 px + 2 px gap). */
 .channel-emote {
   position: absolute;
-  top: -10px;
-  left: -34px;
+  top: -6px;
+  right: calc(50% + 31px);
   width: 40px;
   height: 40px;
 }
@@ -1194,10 +1199,15 @@ main .container > section.notfound {
   .channel-logo {
     width: 26px;
     height: 26px;
-    padding: 9px;
+    padding: 11px;
   }
   .channel-name {
     font-size: 15px;
+  }
+  .channel-emote {
+    right: calc(50% + 26px);
+    width: 34px;
+    height: 34px;
   }
 }
 
@@ -1223,11 +1233,11 @@ main .container > section.notfound {
 .partner-card:hover {
   color: var(--card-fg);
 }
-/* Razer keeps its green logo (Jean, 28.10.2026). Green on the pale light-theme card is
-   only 1.2:1, so that one card is dark in both themes (green on it 10.6:1). */
-.partner-card.partner-razer {
-  background: #23264a;
-  color: #f3f4ff;
+/* Razer keeps its green logo and the same card as Humble in both themes (Jean, 28.10.2026).
+   Dark theme: green on the card 8.6:1. Light theme: green on the pale card is only 1.2:1,
+   so the logo gets a thin dark outline there. */
+.light-theme .partner-razer .partner-logo {
+  filter: drop-shadow(0 0 0.6px #23264a) drop-shadow(0 0 0.6px #23264a) drop-shadow(0 0 0.6px #23264a);
 }
 .partner-logo-wrap {
   display: flex;
