@@ -262,6 +262,12 @@ Markenfarben aus Logo und Charakterpalette: Indigo `#555995` = tiefes Wasser, Mi
 * **Links-Karten im dunklen Design dunkel** (Variante L2, Jeans Wahl 26.10.2026). Gemessen sind einige Markenlogos darauf unter 3:1 (Twitch 2,5, Discord 2,6, Humble 2,2); Jean hat das so entschieden. Das Razer-Logo ist dort weiß.
 * **Federn** sind eine echte Feder-Form (Kiel, Kerben), 30×60 px, Größe 0,8–1,1, höchstens 55 % sichtbar (Variante F2). Die alte kleine Blattform wirkte wie Staub. **Ohne Fenster-Fokus pausieren sie** an Ort und Stelle (`.effects-paused`), statt ruckelig weiterzufallen; entfernt werden sie per `animationend`, nicht per Timer (sonst verschwänden pausierte Federn mitten in der Luft).
 * **Kästen hinter dem Inhalt (Variante K2, Jean 28.10.2026):** Jeder Abschnitt (`main .container > section`, dazu `.home-intro`) ist ein Kasten mit Rahmen (`--line`, Radius 16 px, Innenabstand 32 px, Handy 24/20 px) in Seitenfarbe zu 82 % deckend. So schimmern die Federn durch, der Text davor bleibt lesbar. Die Federn bleiben **dahinter** und behalten ihre 55 % – nicht leiser, nicht weniger, nicht nur am Rand (alles verworfen). Abstände der Abschnitte kommen nur aus dieser Regel, keine `style="padding…"` an `<section>`.
+* **Nach dem 2. Blindvergleich (Jean, 28.10.2026):**
+  * **Cookie-Fenster kompakt:** eine Zeile mit Text links und beiden Knöpfen rechts, Titel 18 px, Text 15 px; am PC 143 px hoch statt vorher rund 270 px. Handy: Knöpfe unter dem Text.
+  * **Hinweis für Firmen** direkt unter „Wer ich bin“ (`.who-business`, Schlüssel `who_business_text`/`who_business_link`), Wortlaut aus dem alten Kontakttext, Link auf `/contact`.
+  * **Partner-Kacheln** füllen dieselbe Breite wie die Kanal-Kacheln darüber (zwei gleich breite Spalten, kein `max-width` mehr).
+  * **Razer-Logo wieder grün.** Grün auf der hellen Kachel wäre nur 1,2:1, deshalb ist die Razer-Kachel in beiden Themes dunkel `#23264a` (Grün darauf 10,6:1).
+  * **Mint-Leiste bleibt** – das ist die Farbe (Jean). Hinweise von Prüfern, sie zu dämpfen, nicht wieder aufgreifen.
 * Bewegung nur bei den drei gewollten Effekten (fallende Federn, Vogel-Fußabdruck beim Tippen ins Leere, Hühner-Easter-Egg) – alle aus bei `prefers-reduced-motion`. Keine Seitenübergänge, kein weiches Scrollen.
 * Contact hat bewusst **keinen** Einleitungssatz (siehe Bewusste Entscheidungen). Das Formular „Etwas anderes?" geht an **info@nhywyll.com**.
 
