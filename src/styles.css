@@ -784,7 +784,7 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
-  align-items: flex-start;
+  align-items: center;
 }
 .who-text {
   flex: 999 1 320px;
@@ -795,13 +795,21 @@ html {
   max-width: 40em;
 }
 .who-figure {
-  flex: 0 1 360px;
+  flex: 0 1 240px;
   margin: 0;
 }
-.who-figure img {
+/* The Smol Bean file is 500x250 with the artwork (x 163-348, y 54-212) in the
+   middle; the rest is transparent. Hide only that empty margin. */
+.who-art {
+  aspect-ratio: 192 / 166;
+  overflow: hidden;
+}
+.who-art img {
   display: block;
-  width: 100%;
+  width: 260.4%;
+  max-width: none;
   height: auto;
+  margin: -26.04% 0 0 -83.33%;
 }
 .who-figure figcaption {
   margin-top: 8px;

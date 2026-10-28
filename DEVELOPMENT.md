@@ -215,7 +215,7 @@ Gefunden, aber noch **nicht** behoben (Stand 26.10.2026):
    - Kein Knopf auf der Seite, um die Effekte abzuschalten (nur über die Bewegungs-Einstellung des Geräts).
    - Das offene Handy-Menü schließt sich nicht, wenn man mit Tab hinausgeht.
    - Fokusrahmen (Indigo) auf dem Mint-Kopfband: Kontrast nicht gemessen.
-   - Smol Bean wirkt auf der Startseite klein.
+   - ~~Smol Bean wirkt auf der Startseite klein.~~ Behoben 28.10.2026: Die Datei ist 500×250 px, das Bild selbst nur ca. 186×158 in der Mitte (Rest durchsichtig). `.who-art` blendet nur den leeren Rand aus (feste Prozentwerte in `styles.css`), Bild 240 px breit und senkrecht auf Höhe des Textes (`.who-grid` `align-items: center`). Wird die Datei ersetzt, die Werte neu messen.
 
 **Live-Stand (26.10.2026):** test.nhywyll.com zeigt das neue Design „Himmel und Wasser“. nhywyll.com läuft noch mit dem alten Design (letztes `deploy:prod` am 20.10.2026, `facb496`). `deploy:prod` erst, wenn Jean es sagt.
 
