@@ -1055,7 +1055,7 @@ main .container > section.notfound {
 .night-sky {
   --sky-glow: rgba(150, 200, 255, 0.55);
   position: relative;
-  height: 440px;
+  height: 480px;
   overflow: hidden;
   border-radius: 12px;
   background:
@@ -1065,6 +1065,17 @@ main .container > section.notfound {
     radial-gradient(ellipse 30% 26% at 72% 12%, rgba(110, 80, 190, 0.35), transparent 70%),
     radial-gradient(ellipse 45% 35% at 40% 70%, rgba(80, 60, 170, 0.35), transparent 72%),
     linear-gradient(160deg, #241a52, #2e2468 45%, #1a1440);
+}
+/* Light theme: a dusk sky instead of deep night, so the block does not feel foreign on the
+   white page; names keep their dark backing and stay readable. */
+.light-theme .night-sky {
+  background:
+    url("/images/night-sky-stars.svg") center / cover no-repeat,
+    radial-gradient(ellipse 38% 34% at 18% 22%, rgba(240, 160, 210, 0.45), transparent 72%),
+    radial-gradient(ellipse 34% 40% at 86% 78%, rgba(200, 150, 230, 0.5), transparent 72%),
+    radial-gradient(ellipse 30% 26% at 72% 12%, rgba(150, 200, 240, 0.4), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 40% 70%, rgba(140, 120, 220, 0.35), transparent 72%),
+    linear-gradient(160deg, #5b4fa6, #7466c0 45%, #4e4392);
 }
 .sky-lines {
   position: absolute;
@@ -1078,11 +1089,13 @@ main .container > section.notfound {
   stroke-width: 1.6;
   vector-effect: non-scaling-stroke;
 }
-/* Faint strokes hanging from the wing points, so the shape reads as wings. */
-.sky-lines line.feather {
-  stroke: rgba(215, 232, 255, 0.35);
-  stroke-width: 1.2;
-  stroke-dasharray: 3 5;
+/* A soft wing silhouette under the lines (scalloped lower edge = feather tips), so the
+   shape reads as two wings and not as a zigzag. */
+.sky-lines .wing {
+  fill: rgba(200, 220, 255, 0.08);
+  stroke: rgba(215, 232, 255, 0.3);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
 .sky-narrow {
   display: none;
@@ -1090,7 +1103,7 @@ main .container > section.notfound {
 .sky-body {
   position: absolute;
   left: 50%;
-  top: 86%;
+  top: 88%;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -1112,10 +1125,10 @@ main .container > section.notfound {
 /* Order in the list: Twitch, YouTube, TikTok, Bluesky, Discord, Ko-fi. */
 .channel-grid li:nth-child(1) { left: 38%; top: 66%; }
 .channel-grid li:nth-child(2) { left: 62%; top: 66%; }
-.channel-grid li:nth-child(3) { left: 25%; top: 40%; }
-.channel-grid li:nth-child(4) { left: 11%; top: 50%; }
-.channel-grid li:nth-child(5) { left: 75%; top: 40%; }
-.channel-grid li:nth-child(6) { left: 89%; top: 50%; }
+.channel-grid li:nth-child(3) { left: 25%; top: 38%; }
+.channel-grid li:nth-child(4) { left: 11%; top: 48%; }
+.channel-grid li:nth-child(5) { left: 75%; top: 38%; }
+.channel-grid li:nth-child(6) { left: 89%; top: 48%; }
 .channel-card {
   position: relative;
   display: flex;
@@ -1143,9 +1156,9 @@ main .container > section.notfound {
 }
 .channel-logo {
   box-sizing: content-box;
-  width: 32px;
-  height: 32px;
-  padding: 13px;
+  width: 40px;
+  height: 40px;
+  padding: 16px;
   object-fit: contain;
   /* The circle is painted as a background, not with border-radius: a rounded <img> also
      cuts the logo itself to a circle (that clipped the corners of the Twitch logo). */
@@ -1155,9 +1168,10 @@ main .container > section.notfound {
 }
 .channel-name {
   /* A soft dark backing so a wing line running past never crosses the letters. */
-  padding: 0 6px;
+  padding: 1px 8px;
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 20px;
+  white-space: nowrap;
   background: rgba(26, 20, 64, 0.7);
   border-radius: 6px;
   text-shadow: 0 1px 6px rgba(10, 8, 40, 0.9);
@@ -1165,6 +1179,11 @@ main .container > section.notfound {
 .channel-card:hover .channel-logo {
   --ring: #eaf3ff;
   filter: drop-shadow(0 0 14px rgba(170, 210, 255, 0.95));
+}
+/* The arrow says "opens elsewhere", like the other external links on the site. */
+.channel-name::after {
+  content: " \2197";
+  font-size: 0.8em;
 }
 .channel-card:hover .channel-name,
 .channel-card:focus-visible .channel-name {
@@ -1179,18 +1198,32 @@ main .container > section.notfound {
   filter: drop-shadow(0 0 14px rgba(170, 210, 255, 0.95));
 }
 /* Sits left of the circle, never on it: the card is as wide as its label, so it is placed
-   from the middle (circle radius 29 px + 2 px gap). */
+   from the middle (circle radius 36 px + 2 px gap). */
 .channel-emote {
   position: absolute;
   top: -6px;
-  right: calc(50% + 31px);
+  right: calc(50% + 38px);
   width: 40px;
   height: 40px;
+}
+/* Tablets: the desktop wings, but less room between the channels. */
+@media (min-width: 701px) and (max-width: 960px) {
+  .channel-logo {
+    width: 32px;
+    height: 32px;
+    padding: 12px;
+  }
+  .channel-name {
+    font-size: 17px;
+  }
+  .channel-emote {
+    right: calc(50% + 30px);
+  }
 }
 /* Phones: the wings stand upright and the tips bend inwards, so the sky stays about one screen tall. */
 @media (max-width: 700px) {
   .night-sky {
-    height: 470px;
+    height: 540px;
   }
   .sky-wide {
     display: none;
@@ -1199,26 +1232,43 @@ main .container > section.notfound {
     display: block;
   }
   .sky-body {
-    top: 92%;
+    top: 93%;
   }
   .channel-grid li:nth-child(1) { left: 34%; top: 72%; }
   .channel-grid li:nth-child(2) { left: 66%; top: 72%; }
-  .channel-grid li:nth-child(3) { left: 17%; top: 46%; }
-  .channel-grid li:nth-child(4) { left: 29%; top: 16%; }
-  .channel-grid li:nth-child(5) { left: 83%; top: 46%; }
-  .channel-grid li:nth-child(6) { left: 71%; top: 16%; }
+  .channel-grid li:nth-child(3) { left: 17%; top: 45%; }
+  .channel-grid li:nth-child(4) { left: 29%; top: 14%; }
+  .channel-grid li:nth-child(5) { left: 83%; top: 45%; }
+  .channel-grid li:nth-child(6) { left: 71%; top: 14%; }
   .channel-logo {
-    width: 26px;
-    height: 26px;
-    padding: 11px;
+    width: 32px;
+    height: 32px;
+    padding: 12px;
   }
   .channel-name {
-    font-size: 15px;
+    font-size: 16px;
+  }
+  .channel-emote {
+    right: calc(50% + 30px);
+    width: 34px;
+    height: 34px;
+  }
+}
+/* Very small phones (about 320 px). */
+@media (max-width: 380px) {
+  .channel-logo {
+    width: 28px;
+    height: 28px;
+    padding: 10px;
+  }
+  .channel-name {
+    padding: 0 4px;
+    font-size: 14px;
   }
   .channel-emote {
     right: calc(50% + 26px);
-    width: 34px;
-    height: 34px;
+    width: 30px;
+    height: 30px;
   }
 }
 
