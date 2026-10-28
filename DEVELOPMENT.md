@@ -231,11 +231,11 @@ Markenfarben aus Logo und Charakterpalette: Indigo `#555995` = tiefes Wasser, Mi
 | | Dunkel = Wasser (`:root`) | Hell = Himmel (`.light-theme`) |
 | :--- | :--- | :--- |
 | Grund `--bg` | `#2b2d55` | `#ffffff` (seit 27.10.2026, vorher `#eefaf9`) |
-| Leiste `--navbar-bg` | `#181a33` | Mint `#90dbdb` (Rand `#6fc3c3`) |
-| Flächen `--panel` | `#383b6b` | Blass-Mint `#eefaf9` |
+| Leiste `--navbar-bg` | `#181a33` | Hell-Mint `#c4eaea` (Rand `#a9dada`; bis 28.10.2026 `#90dbdb`) |
+| Flächen `--panel` | `#383b6b` | Blass-Mint `#f4fbfb` (vorher `#eefaf9`) |
 | Akzent `--accent` | Mint `#90dbdb` | Indigo `#555995` |
 | Knöpfe `--cta` | Gelb `#ffd763` | Gelb `#ffd763` (bis 28.10.2026 Orange `#ff9434`; Jean: überall Gold, gleiche Regel für Zeitplan, „Nachricht senden“, Discord) |
-| Kartengrund `--card-bg` (Links) | `#31345f` (Schrift `#f3f4ff`) | `#d6f2f1` |
+| Kartengrund `--card-bg` (Links) | `#31345f` (Schrift `#f3f4ff`) | `#e4f5f5` (vorher `#d6f2f1`) |
 
 * Knopffarbe = Komplementärfarbe zum Grund. **Kein Pink auf Knöpfen.** Text auf Knöpfen `#23264a`.
 * Kennzeichen auf Home: Pink `#ff6cb2`, Lila `#7266ca`, Gelb `#ffd763` (Charakterpalette).
@@ -267,7 +267,8 @@ Markenfarben aus Logo und Charakterpalette: Indigo `#555995` = tiefes Wasser, Mi
   * **Hinweis für Firmen** direkt unter „Wer ich bin“ (`.who-business`, Schlüssel `who_business_text`/`who_business_link`), Wortlaut aus dem alten Kontakttext, Link auf `/contact`.
   * **Partner-Kacheln** füllen dieselbe Breite wie die Kanal-Kacheln darüber (zwei gleich breite Spalten, kein `max-width` mehr).
   * **Razer-Logo wieder grün.** Grün auf der hellen Kachel wäre nur 1,2:1, deshalb ist die Razer-Kachel in beiden Themes dunkel `#23264a` (Grün darauf 10,6:1).
-  * **Mint-Leiste bleibt** – das ist die Farbe (Jean). Hinweise von Prüfern, sie zu dämpfen, nicht wieder aufgreifen.
+  * **Mint im hellen Theme heller (Variante B, Jean 28.10.2026):** Leiste `#c4eaea`, Flächen `#f4fbfb`, Karten `#e4f5f5`, Linien `--line` `#cfe9e9` – das alte `#90dbdb` war zu kräftig. Leistentext darauf 7,4:1.
+  * **Banner im hellen Theme links heller:** unscharfe Kopie ohne Abdunkeln plus Mint-Schleier, Logo bleibt **weiß** (das Logo wechselt nie mit dem Theme) mit weichem Schatten; weißes Logo darauf 4,8:1. Stärker aufhellen geht nicht (bei 2,8:1 getestet, zu schwach).
 * Bewegung nur bei den drei gewollten Effekten (fallende Federn, Vogel-Fußabdruck beim Tippen ins Leere, Hühner-Easter-Egg) – alle aus bei `prefers-reduced-motion`. Keine Seitenübergänge, kein weiches Scrollen.
 * Contact hat bewusst **keinen** Einleitungssatz (siehe Bewusste Entscheidungen). Das Formular „Etwas anderes?" geht an **info@nhywyll.com**.
 

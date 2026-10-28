@@ -70,8 +70,9 @@
   /* Variant L3 (Jean, 27.10.2026): white page, the mint "sky" lives in the nav bar;
      panels take the pale mint so they still stand out on white. */
   --bg: #ffffff;
-  --panel: #eefaf9;
-  --line: #bfe3e2;
+  /* Lighter mint (variant B, Jean 28.10.2026): the old #90dbdb bar was too strong. */
+  --panel: #f4fbfb;
+  --line: #cfe9e9;
   --text: #23264a;
   --text-2: #3d4170;
   --muted: #4f5578;
@@ -80,13 +81,13 @@
   --on-cta: #23264a;
   --link: #3b3f8a;
   --link-hover: #23264a;
-  --card-bg: #d6f2f1;
+  --card-bg: #e4f5f5;
   --card-fg: #23264a;
   --art-bg: #e1f3f2;
   --track: #555995;
   --track-shadow: rgba(255, 255, 255, 0.9);
-  --navbar-bg: #90dbdb;
-  --navbar-line: #6fc3c3;
+  --navbar-bg: #c4eaea;
+  --navbar-line: #a9dada;
 
   color-scheme: light;
 }
@@ -253,6 +254,18 @@ html {
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, rgba(16, 18, 48, 0.55), rgba(16, 18, 48, 0) 60%);
+}
+/* Light theme: the blurred left side turns lighter with a mint veil (Jean, 28.10.2026).
+   Only a little, so the white logo (it never changes with the theme) keeps 4.8:1;
+   the soft shadow helps it on the lighter ground. */
+.light-theme .banner-bg {
+  filter: blur(24px) brightness(1) saturate(0.85);
+}
+.light-theme .banner-shade {
+  background: linear-gradient(90deg, rgba(144, 219, 219, 0.25), rgba(144, 219, 219, 0) 60%);
+}
+.light-theme .site-header .logo {
+  filter: drop-shadow(0 1px 4px rgba(35, 38, 74, 0.55));
 }
 
 .site-header .hdr {
