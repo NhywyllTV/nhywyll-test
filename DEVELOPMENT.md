@@ -234,13 +234,13 @@ Markenfarben aus Logo und Charakterpalette: Indigo `#555995` = tiefes Wasser, Mi
 | Leiste `--navbar-bg` | `#181a33` | Mint `#90dbdb` (Rand `#6fc3c3`) |
 | Flächen `--panel` | `#383b6b` | Blass-Mint `#eefaf9` |
 | Akzent `--accent` | Mint `#90dbdb` | Indigo `#555995` |
-| Knöpfe `--cta` | Gelb `#ffd763` | Orange `#ff9434` |
+| Knöpfe `--cta` | Gelb `#ffd763` | Gelb `#ffd763` (bis 28.10.2026 Orange `#ff9434`; Jean: überall Gold, gleiche Regel für Zeitplan, „Nachricht senden“, Discord) |
 | Kartengrund `--card-bg` (Links) | `#31345f` (Schrift `#f3f4ff`) | `#d6f2f1` |
 
 * Knopffarbe = Komplementärfarbe zum Grund. **Kein Pink auf Knöpfen.** Text auf Knöpfen `#23264a`.
 * Kennzeichen auf Home: Pink `#ff6cb2`, Lila `#7266ca`, Gelb `#ffd763` (Charakterpalette).
 * Alle Textkontraste ≥ 4,5:1 (gemessen). Alle Partner-Karten folgen den Theme-Farben (Jean: eine dunkle Razer-Karte passte nicht). Das grüne Razer-Logo verschwindet auf den hellen Karten (1,0–1,2:1) und wird deshalb einfarbig dunkel gezeigt (`.logo-mono`).
-* LIVE-Knopf Rot `#c62f3f` (Weiß darauf 5,4:1); offline zeigt derselbe Platz nur „Schedule“/„Zeitplan“ (ohne Uhrzeit) und führt zum Twitch-Zeitplan.
+* LIVE-Knopf Rot `#c62f3f` (Weiß darauf 5,4:1); offline zeigt derselbe Platz nur „Schedule“/„Zeitplan“ (ohne Uhrzeit) und führt zum Twitch-Zeitplan. Der Zeitplan-Knopf ist **gold in der Knopffarbe** (`--cta`, Text `--on-cta` 10,5:1 in beiden Themes; Knopf vor Mint-Leiste nur 1,14:1, die Schrift trägt) **mit Kalender-Symbol** (Variante Z2, Jean 28.10.2026) – vorher eine graue Pille, die laut 2 von 3 Prüfern wie der Reiter der aktuellen Seite aussah.
 
 ### 2. Schriften (lokal in `public/fonts/`, wegen CSP und DSGVO kein Google-Fonts-Link)
 * Überschriften: **Marcellus** (`Marcellus-Regular.woff2`)
