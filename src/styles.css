@@ -732,13 +732,39 @@ html {
   height: 72px;
 }
 
-.section {
-  padding: 48px 0;
-  border-top: 1px solid var(--line);
+/* Every content block is a framed box (variant K2, Jean 28.10.2026): falling feathers
+   still shimmer through, but text in front of them stays readable. */
+main .container > section,
+main section.container {
+  margin: 24px 0;
+  padding: 32px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+main section.container {
+  width: calc(100% - 2 * var(--gutter));
+  max-width: calc(var(--page-width) - 2 * var(--gutter));
+  margin: 24px auto;
+}
+main > .container:last-child > section:last-child {
+  margin-bottom: 72px;
+}
+main .container > section.notfound {
+  padding: 80px 32px 120px;
+}
+@media (max-width: 600px) {
+  main .container > section,
+  main section.container {
+    padding: 24px 20px;
+  }
 }
 .section-title {
   margin: 0 0 24px;
   font-size: 36px;
+  /* Long German words ("Datenschutzerklärung") are wider than a phone box. */
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 .section-head {
   display: flex;
