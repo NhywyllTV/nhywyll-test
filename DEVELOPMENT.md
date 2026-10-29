@@ -222,7 +222,7 @@ Erledigt aus dem Live-Review (26.10.2026), zur Nachverfolgung:
 - **Sternbild-Namen mit dunklem Hintergrund** (28.10.2026), damit Flügellinien nicht durch die Schrift laufen (fiel bei 768 px auf); Tastaturfokus unterstreicht den Namen wie Maus-darüber.
 - Smol Bean: Die Datei ist 500×250 px, das Bild selbst nur ca. 186×158 in der Mitte (Rest durchsichtig). `.who-art` blendet nur den leeren Rand aus (feste Prozentwerte in `styles.css`), Bild 240 px breit und senkrecht auf Höhe des Textes. Wird die Datei ersetzt, die Werte neu messen.
 
-**Live-Stand (28.10.2026):** test.nhywyll.com zeigt das neue Design „Himmel und Wasser“ (Repo `NhywyllTV/nhywyll-test`). nhywyll.com läuft noch mit dem alten Design (letztes `deploy:prod` am 20.10.2026, `facb496`). `deploy:prod` erst, wenn Nhywyll es sagt.
+**Live-Stand (29.10.2026):** Beide Seiten zeigen das neue Design „Himmel und Wasser“: test.nhywyll.com (Repo `NhywyllTV/nhywyll-test`) und seit dem `deploy:prod` am 29.10.2026 (`169c9ba`) auch nhywyll.com (Repo `NhywyllTV/nhywyll-website`).
 
 ---
 
