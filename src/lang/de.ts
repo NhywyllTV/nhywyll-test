@@ -12,7 +12,7 @@ export const de: CompleteTranslation = {
     "nav_contact": "Kontakt",
     "nav_credits": "Credits",
     "imprint_link": "Impressum",
-    "hero_subtitle": "VTuber • Streamer",
+    "hero_subtitle": "Modded Minecraft VTuber",
     "hero_badge_pronouns": "Er/Sie",
     "hero_badge_gamer": "Gamer",
     "hero_badge_chicken": "Hühnerliebhaber",

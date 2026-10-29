@@ -13,7 +13,7 @@ export const en = {
   nav_contact: "Contact",
   nav_credits: "Credits",
   imprint_link: "Imprint",
-  hero_subtitle: "VTuber • Streamer",
+  hero_subtitle: "Modded Minecraft VTuber",
   hero_badge_pronouns: "They/them",
   hero_badge_gamer: "Gamer",
   hero_badge_chicken: "Chicken Lover",
