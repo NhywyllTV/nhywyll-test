@@ -28,7 +28,7 @@ export default defineConfig({
       hostname: 'https://nhywyll.com/',
       exclude: ['/404'],
       generateRobotsTxt: false,
-      readable: true,
+      readable: false, // no line breaks inside <loc>
     }),
   ],
   base: '/',

@@ -1180,6 +1180,12 @@ main .container > section.notfound {
   --ring: #eaf3ff;
   filter: drop-shadow(0 0 14px rgba(170, 210, 255, 0.95));
 }
+/* "Effects: off" also drops the hover glow; the underline still shows what is clickable,
+   and the keyboard focus ring stays (it is not decoration). */
+.effects-off .channel-card:hover .channel-logo {
+  --ring: rgba(200, 225, 255, 0.9);
+  filter: drop-shadow(0 0 8px var(--sky-glow));
+}
 /* The arrow says "opens elsewhere", like the other external links on the site. */
 .channel-name::after {
   content: " \2197";

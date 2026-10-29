@@ -779,6 +779,8 @@ function updateEffectsLabel() {
   const label = toggle.querySelector(".effects-label");
   if (label) label.textContent = translations[currentLanguage]?.[key] ?? key;
   toggle.setAttribute("aria-pressed", String(effectsOn));
+  // CSS uses this to drop decorative hover glows too (Jean, 29.10.2026).
+  document.documentElement.classList.toggle("effects-off", !effectsOn);
 }
 
 function startFeathers() {
@@ -959,7 +961,8 @@ document.addEventListener("click", (e) => {
 function setupEasterEgg() {
   const chickenEmojis = ["🐔", "🐣", "🐥", "🐤", "🦆", "🐧", "🐓", "🦅"];
   const triggerEasterEgg = () => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Off with the device setting and with the "Effects: off" button in the footer.
+    if (!effectsOn) return;
     const emoji = document.createElement("span");
     emoji.className = "easter-chicken";
     emoji.setAttribute("aria-hidden", "true");

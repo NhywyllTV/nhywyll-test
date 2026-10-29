@@ -4,12 +4,18 @@
   "description": "Official website and community hub for Nhywyll - VTuber, streamer, modded Minecraft survivalist and Silkie lover.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f101b",
-  "theme_color": "#7d88c4",
+  "background_color": "#2b2d55",
+  "theme_color": "#181a33",
   "icons": [
     {
-      "src": "/images/For%20Icon.png",
-      "sizes": "150x150",
+      "src": "/images/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/app-icon-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     }

@@ -201,14 +201,13 @@ Alles hier wurde schon einmal als „Fehler“ oder „Verbesserung“ vorgeschl
 10. **Dunkles Startbild im hellen Theme** liegt am Bild (Watergoddess ist dunkel), nicht am Theme.
 11. **Werbekennzeichnung nur einmal** auf der Links-Seite: im Satz unter „Partners & Affiliates“ (`partner_subtitle`: „Affiliate-Links, Werbung“) plus `rel="sponsored"` an den Links. Nicht zusätzlich in jeder Partner-Karte (26.10.2026 entfernt).
 12. **Theme-Knopf ohne `aria-pressed`.** Seine Beschriftung nennt die Aktion („Zum dunklen Modus wechseln“); ein Gedrückt-Zustand dazu wäre widersprüchlich.
+13. **Keine eigenen Adressen pro Sprache** (`/de/...`, `hreflang`) und keine übersetzten Meta-/Vorschautexte (Jean, 29.10.2026: „meine Homepage ist nicht groß genug dafür“). Folge: Google und Link-Vorschauen zeigen immer Englisch – passt, Kanal und Community sind englisch. Meta-Texte per JavaScript übersetzen bringt ohnehin nichts (Vorschauen lesen ohne JavaScript).
 
 ## 📌 Offene Punkte
 
 Gefunden, aber noch **nicht** behoben (Stand 28.10.2026):
 
-1. **Meta-Beschreibungen und Open-Graph-Texte nur englisch.** Per JavaScript übersetzen bringt **nichts**: Link-Vorschauen (Discord, WhatsApp, Bluesky) lesen die Seite ohne JavaScript, und Suchmaschinen zeigen die eine Fassung unter der Adresse. Deutsch ginge nur mit eigenen Adressen pro Sprache (Punkt 2). Bis dahin bleibt Englisch (passt zu Bewusste Entscheidung 3).
-2. **Sprache nicht in der URL.** Keine getrennten URLs pro Sprache, kein `hreflang`. Suchmaschinen sehen nur die englische Fassung. Erst bei mehr Sprachen relevant.
-3. **Offene Frage „Mehr Sprachdateien“:** (a) weitere Sprachen wie `fr.ts` oder (b) `de.ts`/`en.ts` pro Seite aufteilen? Für (b) müsste `src/lang/index.ts` die Teile zusammenführen.
+1. **Offene Frage „Mehr Sprachdateien“:** (a) weitere Sprachen wie `fr.ts` oder (b) `de.ts`/`en.ts` pro Seite aufteilen? Für (b) müsste `src/lang/index.ts` die Teile zusammenführen.
 
 Erledigt aus dem Live-Review (26.10.2026), zur Nachverfolgung:
 - Seitentitel wird nach SPA-Seitenwechsel angesagt (`aria-live`-Ansager in `main.ts`).
@@ -216,6 +215,7 @@ Erledigt aus dem Live-Review (26.10.2026), zur Nachverfolgung:
 - Fokusrahmen Indigo `#555995` auf der Mint-Leiste `#c4eaea`: 5,0:1 (gemessen 28.10.2026).
 - Imprint und 404 haben einen Einleitungssatz (`imprint_lead`, `404_text`).
 - **Effekte abschaltbar** (28.10.2026, WCAG 2.2.2): Knopf „Effekte: an/aus“ im Footer neben Sprache und Theme (`#effects-toggle`, `aria-pressed`, Text zeigt den Zustand). Gemerkt in `localStorage` „effects“ (`on`/`off`), schaltet Federn und Vogelspuren. Bei „weniger Bewegung“ im Gerät sind die Effekte immer aus und der Knopf ausgeblendet.
+- **Kleinkram aus der Fehlersuche 29.10.2026:** Sitemap ohne Zeilenumbrüche in `<loc>` (`readable: false` in `vite.config.ts`); `manifest.json` mit Farben des neuen Designs (Grund `#2b2d55`, Leiste `#181a33`) und App-Symbolen 192/512 px (`public/images/app-icon-*.png`, aus `Assets/For pfp.png` 256 px – die 512er Fassung ist hochgerechnet, bei einer größeren Vorlage ersetzen; Kunstwerk dafür nicht neu zuschneiden); `apple-touch-icon` = 192er. Das Hühner-Easter-Egg folgt jetzt auch dem Knopf „Effekte: aus“. Bei „Effekte: aus“ fällt auch der Schein beim Maus-darüber am Sternbild weg (Jean, 29.10.2026; Klasse `html.effects-off`); die Unterstreichung bleibt als Hinweis auf den Link, der Tastatur-Ring bleibt immer.
 - **Shorts mit Datum** (28.10.2026): `fetch-shorts.mjs` holt `published` aus dem Feed, unter jedem Titel steht das Upload-Datum in der Sprache des Besuchers (`formatShortDate`, z. B. „27. Okt. 2026“). Aktuell ist es nach jedem Build/Push.
 - **Cookie-Fenster verdeckt keinen Tastaturfokus mehr** (WCAG 2.4.11, 28.10.2026): solange es offen ist, setzt `main.ts` `scroll-padding-bottom` auf seine Höhe + 24 px, markierte Elemente rücken darüber.
 - **Sternbild-Namen mit dunklem Hintergrund** (28.10.2026), damit Flügellinien nicht durch die Schrift laufen (fiel bei 768 px auf); Tastaturfokus unterstreicht den Namen wie Maus-darüber.
