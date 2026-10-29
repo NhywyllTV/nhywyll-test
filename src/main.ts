@@ -779,7 +779,7 @@ function updateEffectsLabel() {
   const label = toggle.querySelector(".effects-label");
   if (label) label.textContent = translations[currentLanguage]?.[key] ?? key;
   toggle.setAttribute("aria-pressed", String(effectsOn));
-  // CSS uses this to drop decorative hover glows too (Jean, 29.10.2026).
+  // CSS uses this to drop decorative hover glows too (29.10.2026).
   document.documentElement.classList.toggle("effects-off", !effectsOn);
 }
 
@@ -1018,7 +1018,7 @@ function setupContactForm() {
       form.querySelector("#message") as HTMLTextAreaElement
     ).value.trim();
     // Business and fans have their own addresses above the form;
-    // the form is for everything else and goes to info@ (Jean, 26.10.2026).
+    // the form is for everything else and goes to info@ (26.10.2026).
     const recipient = "info@nhywyll.com";
     const subject = encodeURIComponent(
       `${strings?.["contact_subject_prefix"] ?? "Message from"} ${name}`,
