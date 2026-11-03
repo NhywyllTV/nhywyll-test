@@ -27,7 +27,7 @@ export const de: CompleteTranslation = {
     "faq_q2": "Was ist deine Lieblings-Hühnerrasse?",
     "faq_a2": "Seidenhühner! :D",
     "faq_q3": "Welches Modpack spielst du gerade?",
-    "faq_a3": "FTB Genesis von Feed the Beast",
+    "faq_a3": "Genesis von FTB (Feed the Beast)",
     "faq_q4": "Woher kommst du?",
     "faq_a4": "Deutschland / Muttersprache Deutsch.",
     "contact_title": "Kontakt & Zusammenarbeit",
