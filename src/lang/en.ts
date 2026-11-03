@@ -50,7 +50,6 @@ export const en = {
   faq_q2: "What is your favorite chicken breed?",
   faq_a2: "Silkies! :D",
   faq_q3: "What modpack are you playing currently?",
-  faq_a3: "Genesis by FTB (Feed the Beast)",
   faq_q4: "Where are you from?",
   faq_a4: "Germany / native German speaker.",
   social_title: "Social Channels",
