@@ -284,7 +284,7 @@ Markenfarben aus Logo und Charakterpalette: Indigo `#555995` = tiefes Wasser, Mi
 * Contact hat bewusst **keinen** Einleitungssatz (siehe Bewusste Entscheidungen). Das Formular „Etwas anderes?" geht an **info@nhywyll.com**.
 
 ### 4. Latest Shorts
-`scripts/fetch-shorts.mjs` läuft vor `dev` und `build`: holt die 5 neuesten Shorts aus dem YouTube-Feed (Shorts-Playlist `UUSH…` des Kanals `UCtiQlpGmReXnpVsuhRxdc3A`) und speichert Titel (`src/data/shorts.json`) und Vorschaubilder (`public/images/shorts/`) **lokal** – Besucher kontaktieren YouTube dadurch nicht. Beide sind gitignored; ohne Netz bleibt der Abschnitt einfach ausgeblendet. Die Liste aktualisiert sich bei jedem Push.
+`scripts/fetch-shorts.mjs` läuft vor `dev` und `build`: holt die 5 neuesten Shorts aus dem YouTube-Feed (Shorts-Playlist `UUSH…` des Kanals `UCtiQlpGmReXnpVsuhRxdc3A`) und speichert Titel (`src/data/shorts.json`) und Vorschaubilder (`public/images/shorts/`) **lokal** – Besucher kontaktieren YouTube dadurch nicht. Beide sind gitignored; ohne Netz bleibt der Abschnitt einfach ausgeblendet. Die Liste aktualisiert sich bei jedem Push und zusätzlich täglich um 17:00 UTC (Zeitplan in `.github/workflows/deploy.yml`, seit 03.11.2026 – vorher blieben neue Shorts bis zum nächsten Deploy unsichtbar). Von Hand: GitHub → Actions → „Deploy to GitHub Pages“ → „Run workflow“. Achtung: GitHub schaltet Zeitpläne nach 60 Tagen ohne Commit im Repo ab.
 
 
 ### 5. Ladezeit & Bildgrößen (gemessen 26.10.2026, test.nhywyll.com)

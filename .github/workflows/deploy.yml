@@ -3,6 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ "main" ] # Oder dein Haupt-Branch Name
+  # Daily rebuild so new Shorts show up without a deploy (fetched at build time).
+  # 17:00 UTC is after the 17:30 Europe/Berlin posting slot in winter and summer.
+  schedule:
+    - cron: "0 17 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
