@@ -201,9 +201,9 @@ eigener Block zeigt besser, dass es schon mehr Abenteuer gab).
   vidIQ geprüft. „Frag Studio“ taugt dafür nicht: Es durchsucht nur Titel.
 - **Neues Pack dazu:** Eintrag in der JSON (`key`, `name`, `url`, `shorts`), einen `<section
   class="past-pack" data-pack="<key>">`-Block in `past-modpacks.html`, Text `past_<key>_text` in
-  allen Sprachen, Bilder herunterladen, und auf `index.html` eine Karte in `.past-cards` (Bild =
-  meistgesehener Clip, Link `/past-modpacks#pack-<key>`). Texte im Block nennen die Packs beim Namen
-  (`past_teaser_text`) - dort ergänzen. Alle 5 Clips sind auch am Handy sichtbar (eigene Regel
+  allen Sprachen, Bilder herunterladen, und auf `index.html` eine Karte in `.past-cards` (nur Text: Name mit Pfeil,
+  Kurztext `past_<key>_short`, Link `/past-modpacks#pack-<key>`). Bewusst **ohne Bilder**
+  (Nhywyll, 17.11.2026: eine Reihe mit 5 Vorschaubildern pro Pack war zu unruhig). Alle 5 Clips sind auch am Handy sichtbar (eigene Regel
   `.past-pack .shorts-grid li:nth-child(n)` am Ende von `styles.css`).
 
 ## 🔒 Bewusste Entscheidungen (nicht ändern, nicht als Fehler melden)
