@@ -132,6 +132,7 @@ export const en = {
   past_teaser_title: "My Past Adventures",
   past_teaser_text: "Curious what I played before? Here are the most-watched Shorts from my earlier modpacks, FTB StoneBlock 4 and FTB OceanBlock 2.",
   past_teaser_button: "See past modpacks",
+  past_card_sub: "5 most-watched Shorts",
   page_title_past: "Past Modpacks | Nhywyll",
   past_title: "Past Modpacks",
   past_intro: "The five most-watched Shorts from each modpack I played before. The button next to each pack opens its page on the FTB website.",

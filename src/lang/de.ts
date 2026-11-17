@@ -116,6 +116,7 @@ export const de: CompleteTranslation = {
     "past_teaser_title": "Meine früheren Abenteuer",
     "past_teaser_text": "Neugierig, was ich vorher gespielt habe? Hier findest du die meistgesehenen Shorts aus meinen früheren Modpacks, FTB StoneBlock 4 und FTB OceanBlock 2.",
     "past_teaser_button": "Frühere Modpacks ansehen",
+    "past_card_sub": "Die 5 meistgesehenen Shorts",
     "page_title_past": "Frühere Modpacks | Nhywyll",
     "past_title": "Frühere Modpacks",
     "past_intro": "Die fünf meistgesehenen Shorts aus jedem Modpack, das ich früher gespielt habe. Der Knopf neben jedem Pack öffnet seine Seite bei FTB.",
