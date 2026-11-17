@@ -105,6 +105,7 @@ const htmlFiles = [
   "links.html",
   "contact.html",
   "credits.html",
+  "past-modpacks.html",
   "imprint.html",
   "404.html",
 ];

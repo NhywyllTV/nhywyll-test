@@ -185,6 +185,25 @@ nhywyll-test/ (local folder: test_website/)
 
 ---
 
+## 🎞️ Seite „Past Modpacks“ (`/past-modpacks`, seit 17.11.2026)
+
+Zeigt je abgeschlossenem Modpack die 5 meistgesehenen Shorts plus Link zur FTB-Seite.
+Erreichbar **nur** über den eigenen Block „My Past Adventures“ direkt **unter** „Latest Shorts“
+auf der Startseite (Knopf „See past modpacks“). **Bewusst kein Menüpunkt** („Schedule“ soll in der
+Navigation mittig bleiben) und **nicht** als zweiter Knopf in der Shorts-Überschrift (Jean, 17.11.2026:
+eigener Block zeigt besser, dass es schon mehr Abenteuer gab).
+
+- **Feste Liste** in `src/data/past-modpacks.json` (im Repo, nicht gitignored), Vorschaubilder in
+  `public/images/past-shorts/<id>.jpg` (einmal von `i.ytimg.com/vi/<id>/hqdefault.jpg` geladen).
+  Grund: Der YouTube-Feed von `fetch-shorts.mjs` liefert nur die letzten 15 Shorts.
+- **Wie die Top 5 ermittelt wurden:** YouTube Studio → Inhalte → Shorts → Filter
+  „Beschreibung enthält 'stoneblock'“ bzw. „'oceanblock'“ → nach Aufrufen sortiert; Video-IDs per
+  vidIQ geprüft. „Frag Studio“ taugt dafür nicht: Es durchsucht nur Titel.
+- **Neues Pack dazu:** Eintrag in der JSON (`key`, `name`, `url`, `shorts`), einen `<section
+  class="past-pack" data-pack="<key>">`-Block in `past-modpacks.html`, Text `past_<key>_text` in
+  allen Sprachen, Bilder herunterladen. Alle 5 Clips sind auch am Handy sichtbar (eigene Regel
+  `.past-pack .shorts-grid li:nth-child(n)` am Ende von `styles.css`).
+
 ## 🔒 Bewusste Entscheidungen (nicht ändern, nicht als Fehler melden)
 
 Alles hier wurde schon einmal als „Fehler“ oder „Verbesserung“ vorgeschlagen und ist **absichtlich** so.

@@ -367,6 +367,46 @@ function formatShortDate(iso: string) {
   });
 }
 
+// One Short card (thumbnail, title, date) linking to YouTube; imageDir holds <id>.jpg.
+function buildShortItem(short: Short, imageDir: string) {
+  const li = document.createElement("li");
+  const link = document.createElement("a");
+  link.className = "short-link";
+  link.href = `https://www.youtube.com/shorts/${short.id}`;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+
+  const thumb = document.createElement("span");
+  thumb.className = "short-thumb";
+  const img = document.createElement("img");
+  img.src = `${imageDir}/${short.id}.jpg`;
+  img.alt = "";
+  img.loading = "lazy";
+  img.width = 480;
+  img.height = 360;
+  const play = document.createElement("span");
+  play.className = "short-play";
+  play.setAttribute("aria-hidden", "true");
+  play.innerHTML =
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>';
+  thumb.append(img, play);
+
+  const title = document.createElement("span");
+  title.className = "short-title";
+  title.textContent = short.title;
+
+  link.append(thumb, title);
+  if (short.published) {
+    const date = document.createElement("time");
+    date.className = "short-date";
+    date.dateTime = short.published;
+    date.textContent = formatShortDate(short.published);
+    link.append(date);
+  }
+  li.append(link);
+  return li;
+}
+
 function renderShorts() {
   const section = document.getElementById("shorts-section");
   const list = document.getElementById("shorts-list");
@@ -375,47 +415,24 @@ function renderShorts() {
     section.hidden = true;
     return;
   }
-  list.replaceChildren(
-    ...SHORTS.map((short) => {
-      const li = document.createElement("li");
-      const link = document.createElement("a");
-      link.className = "short-link";
-      link.href = `https://www.youtube.com/shorts/${short.id}`;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-
-      const thumb = document.createElement("span");
-      thumb.className = "short-thumb";
-      const img = document.createElement("img");
-      img.src = `/images/shorts/${short.id}.jpg`;
-      img.alt = "";
-      img.loading = "lazy";
-      img.width = 480;
-      img.height = 360;
-      const play = document.createElement("span");
-      play.className = "short-play";
-      play.setAttribute("aria-hidden", "true");
-      play.innerHTML =
-        '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>';
-      thumb.append(img, play);
-
-      const title = document.createElement("span");
-      title.className = "short-title";
-      title.textContent = short.title;
-
-      link.append(thumb, title);
-      if (short.published) {
-        const date = document.createElement("time");
-        date.className = "short-date";
-        date.dateTime = short.published;
-        date.textContent = formatShortDate(short.published);
-        link.append(date);
-      }
-      li.append(link);
-      return li;
-    }),
-  );
+  list.replaceChildren(...SHORTS.map((short) => buildShortItem(short, "/images/shorts")));
   section.hidden = false;
+}
+
+// --- Past modpacks: fixed list of the most-watched Shorts per finished pack ---
+type PastPack = { key: string; name: string; url: string; shorts: Short[] };
+const pastModules = import.meta.glob<PastPack[]>("./data/past-modpacks.json", {
+  eager: true,
+  import: "default",
+});
+const PAST_PACKS: PastPack[] = Object.values(pastModules)[0] ?? [];
+
+function renderPastModpacks() {
+  for (const pack of PAST_PACKS) {
+    const list = document.querySelector(`.past-pack[data-pack="${pack.key}"] .shorts-grid`);
+    if (!list) continue;
+    list.replaceChildren(...pack.shorts.map((short) => buildShortItem(short, "/images/past-shorts")));
+  }
 }
 
 // Dynamisches Copyright-Jahr im Footer
@@ -449,6 +466,7 @@ function init() {
   updateCopyrightYear();
   setupActiveNavHighlight();
   renderShorts();
+  renderPastModpacks();
   setupEasterEgg();
   setupContactForm();
   checkTwitchLiveStatus();

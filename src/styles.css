@@ -1901,3 +1901,8 @@ body {
     animation: none !important;
   }
 }
+
+/* Past modpacks: always show all five Shorts (the home grid hides extras to keep one row). */
+.past-pack .shorts-grid li:nth-child(n) {
+  display: block;
+}
