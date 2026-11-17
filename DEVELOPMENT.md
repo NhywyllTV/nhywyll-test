@@ -190,7 +190,7 @@ nhywyll-test/ (local folder: test_website/)
 Zeigt je abgeschlossenem Modpack die 5 meistgesehenen Shorts plus Link zur FTB-Seite.
 Erreichbar **nur** über den eigenen Block „My Past Adventures“ direkt **unter** „Latest Shorts“
 auf der Startseite (Knopf „See past modpacks“). **Bewusst kein Menüpunkt** („Schedule“ soll in der
-Navigation mittig bleiben) und **nicht** als zweiter Knopf in der Shorts-Überschrift (Jean, 17.11.2026:
+Navigation mittig bleiben) und **nicht** als zweiter Knopf in der Shorts-Überschrift (Nhywyll, 17.11.2026:
 eigener Block zeigt besser, dass es schon mehr Abenteuer gab).
 
 - **Feste Liste** in `src/data/past-modpacks.json` (im Repo, nicht gitignored), Vorschaubilder in
