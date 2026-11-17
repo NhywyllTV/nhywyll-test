@@ -40,7 +40,7 @@ export const en = {
   who_i_am_text1:
     "Chicken-loving VTuber who can't do just one thing at a time. I hop between projects, build ugly but efficient, and chase progress through big modded Minecraft packs.",
   who_i_am_text2:
-    "If it has wings, I'm obsessed. Right now I'm playing FTB Genesis, live on Twitch every Wednesday and Sunday.",
+    "If it has wings, I'm obsessed. Right now I'm playing Homestead, live on Twitch every Wednesday and Sunday.",
   who_business_text:
     "For sponsorships, event inquiries, and creative collaborations: a Media Kit is available upon request.",
   who_business_link: "Business & Partnership",

@@ -18,7 +18,7 @@ export const de: CompleteTranslation = {
     "hero_badge_chicken": "Hühnerliebhaber",
     "who_i_am_title": "Wer ich bin",
     "who_i_am_text1": "Hühnerverliebter VTuber, der nie nur eine Sache gleichzeitig machen kann. Ich springe zwischen Projekten hin und her, baue hässlich, aber effizient, und arbeite mich durch große Minecraft-Modpacks.",
-    "who_i_am_text2": "Alles mit Flügeln begeistert mich. Gerade spiele ich FTB Genesis, live auf Twitch jeden Mittwoch und Sonntag.",
+    "who_i_am_text2": "Alles mit Flügeln begeistert mich. Gerade spiele ich Homestead, live auf Twitch jeden Mittwoch und Sonntag.",
     "who_business_text": "Für Sponsorings, Event-Anfragen und kreative Kooperationen: Ein Media Kit ist auf Anfrage erhältlich.",
     "who_business_link": "Business & Partnerschaft",
     "faq_title": "Häufig gestellte Fragen",
